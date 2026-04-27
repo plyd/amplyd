@@ -72,11 +72,11 @@
       },
       "rights": {
         "title": "Your rights (GDPR)",
-        "body": "You can ask for access, correction, deletion or portability of your data at any time. Contact: vincent@plyd.eu."
+        "body": "You can ask for access, correction, deletion or portability of your data at any time. Use the AI agent on the home page to send Vincent a message, or book a meeting via Cal.com."
       },
       "contact": {
         "title": "Contact",
-        "body": "Vinland SASU — Vincent Juhel — Rennes, France — vincent@plyd.eu."
+        "body": "Vinland SASU — Vincent Juhel — Rennes, France. Reach out via the AI agent or the booking link."
       }
     }
   },
@@ -103,7 +103,7 @@
       },
       "human": {
         "title": "Reach a human",
-        "body": "At any point you can ask the agent to schedule a meeting (Cal.com) or trigger an email to Vincent. You can also write directly to vincent@plyd.eu."
+        "body": "At any point you can ask the agent to schedule a meeting via Cal.com or trigger an email to Vincent. The agent never reveals his personal contact details — Vincent receives your message and replies himself."
       }
     }
   },

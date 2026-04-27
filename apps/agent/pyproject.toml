@@ -2,7 +2,7 @@
 name = "amplyd-agent"
 version = "0.1.0"
 description = "LangGraph agent for amplyd.com — runs on GCP Cloud Run."
-authors = [{ name = "Vincent Juhel", email = "vincent.juhel@gmail.com" }]
+authors = [{ name = "Vincent Juhel" }]
 readme = "README.md"
 license = { text = "MIT" }
 requires-python = ">=3.12,<3.13"

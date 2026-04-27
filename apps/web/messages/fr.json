@@ -72,11 +72,11 @@
       },
       "rights": {
         "title": "Vos droits (RGPD)",
-        "body": "Vous pouvez à tout moment demander l'accès, la rectification, la suppression ou la portabilité de vos données. Contact : vincent@plyd.eu."
+        "body": "Vous pouvez à tout moment demander l'accès, la rectification, la suppression ou la portabilité de vos données. Passez par l'agent IA sur la page d'accueil pour transmettre un message à Vincent, ou réservez un rendez-vous via Cal.com."
       },
       "contact": {
         "title": "Contact",
-        "body": "Vinland SASU — Vincent Juhel — Rennes, France — vincent@plyd.eu."
+        "body": "Vinland SASU — Vincent Juhel — Rennes, France. Contact via l'agent IA ou le lien de prise de rendez-vous."
       }
     }
   },
@@ -103,7 +103,7 @@
       },
       "human": {
         "title": "Joindre un humain",
-        "body": "À tout moment vous pouvez demander à l'agent un rendez-vous (Cal.com) ou un email à Vincent. Vous pouvez aussi écrire directement à vincent@plyd.eu."
+        "body": "À tout moment vous pouvez demander à l'agent un rendez-vous via Cal.com ou un email à Vincent. L'agent ne révèle jamais ses coordonnées personnelles — Vincent reçoit votre message et répond lui-même."
       }
     }
   },

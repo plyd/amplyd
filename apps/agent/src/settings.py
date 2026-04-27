@@ -38,7 +38,7 @@ class Settings(BaseSettings):
     # --- Resend ---
     resend_api_key: str | None = None
     resend_from_email: str = "hello@amplyd.com"
-    owner_email: str = "vincent.juhel@gmail.com"
+    owner_email: str = ""  # injected via env / Secret Manager — never commit a real value
 
     # --- Owner contact ---
     owner_phone: str | None = None
