@@ -88,7 +88,17 @@ export async function listArticles(locale: string): Promise<ArticleMeta[]> {
     .sort((a, b) => a.slug.localeCompare(b.slug));
 }
 
-async function readJson<T>(name: string): Promise<T | null> {
+async function readJson<T>(name: string, envVar: string): Promise<T | null> {
+  // 1. Production: read from Vercel env var (real CV, never committed)
+  const fromEnv = process.env[envVar];
+  if (fromEnv) {
+    try {
+      return JSON.parse(fromEnv) as T;
+    } catch {
+      // fall through to filesystem
+    }
+  }
+  // 2. Local dev: gitignored content/ then fork-safe content.example/
   for (const base of [ROOT, FALLBACK]) {
     const raw = await readFileSafe(path.join(base, name));
     if (!raw) continue;
@@ -102,11 +112,13 @@ async function readJson<T>(name: string): Promise<T | null> {
 }
 
 export async function loadTimeline(locale: string): Promise<TimelineEntry[]> {
-  return (await readJson<TimelineEntry[]>(`timeline.${locale}.json`)) ?? [];
+  const envVar = `AMPLYD_TIMELINE_${locale.toUpperCase()}`;
+  return (await readJson<TimelineEntry[]>(`timeline.${locale}.json`, envVar)) ?? [];
 }
 
 export async function loadProjects(locale: string): Promise<ProjectEntry[]> {
-  return (await readJson<ProjectEntry[]>(`projects.${locale}.json`)) ?? [];
+  const envVar = `AMPLYD_PROJECTS_${locale.toUpperCase()}`;
+  return (await readJson<ProjectEntry[]>(`projects.${locale}.json`, envVar)) ?? [];
 }
 
 export async function readArticle(
