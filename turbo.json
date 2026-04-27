@@ -9,6 +9,12 @@
         ".env*",
         "!.env.example"
       ],
+      "env": [
+        "AMPLYD_TIMELINE_EN",
+        "AMPLYD_TIMELINE_FR",
+        "AMPLYD_PROJECTS_EN",
+        "AMPLYD_PROJECTS_FR"
+      ],
       "outputs": [".next/**", "!.next/cache/**", "dist/**"]
     },
     "dev": {
