@@ -23,6 +23,13 @@ export type ProjectEntry = {
   stack: string[];
 };
 
+export type EducationEntry = {
+  year: string;
+  institution: string;
+  title: string;
+  blurb: string;
+};
+
 const ROOT = path.join(process.cwd(), 'content');
 const FALLBACK = path.join(process.cwd(), 'content.example');
 
@@ -119,6 +126,11 @@ export async function loadTimeline(locale: string): Promise<TimelineEntry[]> {
 export async function loadProjects(locale: string): Promise<ProjectEntry[]> {
   const envVar = `AMPLYD_PROJECTS_${locale.toUpperCase()}`;
   return (await readJson<ProjectEntry[]>(`projects.${locale}.json`, envVar)) ?? [];
+}
+
+export async function loadEducation(locale: string): Promise<EducationEntry[]> {
+  const envVar = `AMPLYD_EDUCATION_${locale.toUpperCase()}`;
+  return (await readJson<EducationEntry[]>(`education.${locale}.json`, envVar)) ?? [];
 }
 
 export async function readArticle(

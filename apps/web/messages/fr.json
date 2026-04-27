@@ -17,6 +17,10 @@
     "eyebrow": "Expérience",
     "title": "Vingt ans à construire des systèmes utiles."
   },
+  "education": {
+    "eyebrow": "Formation",
+    "title": "Diplômes & certifications."
+  },
   "skills": {
     "eyebrow": "Compétences · 2026",
     "title": "Stack que j'envoie en production.",

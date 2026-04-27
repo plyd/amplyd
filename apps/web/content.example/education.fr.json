@@ -1,0 +1,14 @@
+[
+  {
+    "year": "20XX",
+    "institution": "Grande école d'ingénieurs",
+    "title": "Diplôme d'ingénieur",
+    "blurb": "Remplacez par votre vraie formation — voir le README pour le fonctionnement du loader."
+  },
+  {
+    "year": "20XX",
+    "institution": "École de commerce",
+    "title": "Mastère",
+    "blurb": "Autre exemple. Ajoutez autant d'entrées que vous voulez."
+  }
+]

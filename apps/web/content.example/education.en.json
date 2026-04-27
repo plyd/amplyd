@@ -1,0 +1,14 @@
+[
+  {
+    "year": "20XX",
+    "institution": "Top engineering school",
+    "title": "Engineer's degree",
+    "blurb": "Replace this with your actual education entry — see the README for how this loader works."
+  },
+  {
+    "year": "20XX",
+    "institution": "Business school",
+    "title": "Master's program",
+    "blurb": "Another placeholder. Add as many entries as you want."
+  }
+]
