@@ -1,0 +1,20 @@
+[
+  {
+    "period": "20XX — aujourd'hui",
+    "title": "Votre poste actuel",
+    "company": "Entreprise",
+    "blurb": "Une ligne sur ce que vous faites et l'impact."
+  },
+  {
+    "period": "20XX — 20XX",
+    "title": "Poste précédent",
+    "company": "Entreprise",
+    "blurb": "Une ligne."
+  },
+  {
+    "period": "20XX — 20XX",
+    "title": "Plus ancien",
+    "company": "Entreprise",
+    "blurb": "Une ligne."
+  }
+]

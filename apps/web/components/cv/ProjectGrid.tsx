@@ -2,24 +2,14 @@ import { getTranslations } from 'next-intl/server';
 import { ArrowUpRight } from 'lucide-react';
 import { Container } from '@/components/ui/Container';
 import { Card } from '@/components/ui/Card';
-
-type Project = {
-  key: string;
-  href?: string;
-  stack: string[];
-};
-
-const projects: Project[] = [
-  { key: 'amplyd', href: 'https://github.com/plyd/amplyd', stack: ['Next.js', 'LangGraph', 'GCP'] },
-  { key: 'rag', stack: ['BM25', 'Embeddings', 'litellm'] },
-  { key: 'governance', stack: ['ISO 42001', 'LangFuse', 'Guardrails'] },
-];
+import { loadProjects } from '@/lib/content';
 
 export async function ProjectGrid({ locale }: { locale: string }) {
   const t = await getTranslations({ locale, namespace: 'projects' });
+  const projects = await loadProjects(locale);
 
   return (
-    <section id="projects" className="py-24">
+    <section id="projects" className="scroll-mt-20 py-24">
       <Container className="flex flex-col gap-10">
         <header className="flex flex-col gap-2">
           <p className="font-mono text-xs uppercase tracking-[0.25em] text-[var(--color-accent)]">
@@ -35,7 +25,7 @@ export async function ProjectGrid({ locale }: { locale: string }) {
               <Card className="flex h-full flex-col gap-4 transition hover:border-[var(--color-border-strong)]">
                 <div className="flex items-start justify-between gap-3">
                   <h3 className="text-lg font-semibold text-[var(--color-text-primary)]">
-                    {t(`items.${p.key}.title`)}
+                    {p.title}
                   </h3>
                   {p.href && (
                     <ArrowUpRight
@@ -45,7 +35,7 @@ export async function ProjectGrid({ locale }: { locale: string }) {
                   )}
                 </div>
                 <p className="text-sm text-[var(--color-text-secondary)]">
-                  {t(`items.${p.key}.blurb`)}
+                  {p.blurb}
                 </p>
                 <ul className="mt-auto flex flex-wrap gap-2">
                   {p.stack.map((s) => (

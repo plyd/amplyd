@@ -1,0 +1,21 @@
+[
+  {
+    "key": "amplyd",
+    "title": "Amplyd",
+    "blurb": "An AI-native CV with a LangGraph agent, MCP server and ISO 42001 guardrails.",
+    "href": "https://github.com/plyd/amplyd",
+    "stack": ["Next.js", "LangGraph", "GCP"]
+  },
+  {
+    "key": "project-2",
+    "title": "Project name",
+    "blurb": "What it does, in one sentence.",
+    "stack": ["Stack 1", "Stack 2"]
+  },
+  {
+    "key": "project-3",
+    "title": "Project name",
+    "blurb": "What it does, in one sentence.",
+    "stack": ["Stack 1", "Stack 2"]
+  }
+]

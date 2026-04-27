@@ -8,6 +8,21 @@ export type ArticleMeta = {
   draft: boolean;
 };
 
+export type TimelineEntry = {
+  period: string;
+  title: string;
+  company: string;
+  blurb: string;
+};
+
+export type ProjectEntry = {
+  key: string;
+  title: string;
+  blurb: string;
+  href?: string;
+  stack: string[];
+};
+
 const ROOT = path.join(process.cwd(), 'content');
 const FALLBACK = path.join(process.cwd(), 'content.example');
 
@@ -71,6 +86,27 @@ export async function listArticles(locale: string): Promise<ArticleMeta[]> {
   return metas
     .filter((m) => !m.draft)
     .sort((a, b) => a.slug.localeCompare(b.slug));
+}
+
+async function readJson<T>(name: string): Promise<T | null> {
+  for (const base of [ROOT, FALLBACK]) {
+    const raw = await readFileSafe(path.join(base, name));
+    if (!raw) continue;
+    try {
+      return JSON.parse(raw) as T;
+    } catch {
+      return null;
+    }
+  }
+  return null;
+}
+
+export async function loadTimeline(locale: string): Promise<TimelineEntry[]> {
+  return (await readJson<TimelineEntry[]>(`timeline.${locale}.json`)) ?? [];
+}
+
+export async function loadProjects(locale: string): Promise<ProjectEntry[]> {
+  return (await readJson<ProjectEntry[]>(`projects.${locale}.json`)) ?? [];
 }
 
 export async function readArticle(

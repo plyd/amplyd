@@ -31,21 +31,7 @@
   },
   "projects": {
     "eyebrow": "Projets",
-    "title": "Travaux sélectionnés.",
-    "items": {
-      "amplyd": {
-        "title": "Amplyd",
-        "blurb": "Ce site. CV IA-native avec agent LangGraph, serveur MCP et garde-fous ISO 42001."
-      },
-      "rag": {
-        "title": "RAG en production",
-        "blurb": "Recherche hybride BM25 + embeddings, routage multi-LLM, évalué et observable."
-      },
-      "governance": {
-        "title": "Gouvernance ISO 42001",
-        "blurb": "Système de management IA : registre de risques, évaluations, traçabilité."
-      }
-    }
+    "title": "Travaux sélectionnés."
   },
   "chat": {
     "title": "Posez vos questions à l'agent IA de Vincent",
@@ -62,6 +48,64 @@
     "title": "Articles",
     "subtitle": "Notes sur les agents, le RAG, le routage et la gouvernance.",
     "readMore": "Lire la suite"
+  },
+  "privacyPage": {
+    "title": "Confidentialité",
+    "lastUpdated": "Dernière mise à jour : avril 2026",
+    "intro": "Ce site est exploité par Vincent Juhel via Vinland SASU, dont le siège est à Rennes (France). Nous respectons votre vie privée et ne collectons que ce qui est strictement nécessaire pour répondre à vos questions et organiser un rendez-vous.",
+    "sections": {
+      "data": {
+        "title": "Ce que nous collectons",
+        "body": "Les messages que vous envoyez à l'agent IA, une adresse email optionnelle si vous demandez un rendez-vous ou une mise en relation, et des journaux techniques basiques (adresse IP, user-agent) pour la sécurité et la limitation de débit."
+      },
+      "purpose": {
+        "title": "Pourquoi",
+        "body": "Pour répondre à vos questions sur le parcours de Vincent, qualifier les leads de recrutement et l'avertir lorsqu'une personne souhaite le contacter directement. Pas de publicité, pas de profilage, pas de revente."
+      },
+      "where": {
+        "title": "Où les données sont traitées",
+        "body": "Frontend : Vercel (régions UE). Agent : Google Cloud Run, europe-west1. Fournisseurs LLM : Anthropic, OpenAI, Google (leurs propres politiques s'appliquent — aucun n'utilise vos contenus pour entraîner ses modèles). Email : Resend. Rendez-vous : Cal.com."
+      },
+      "retention": {
+        "title": "Durées de conservation",
+        "body": "Sessions de chat : 30 jours. Emails envoyés à Vincent : conservés tant que la conversation est pertinente. Traces agrégées (LangFuse) anonymisées après 90 jours."
+      },
+      "rights": {
+        "title": "Vos droits (RGPD)",
+        "body": "Vous pouvez à tout moment demander l'accès, la rectification, la suppression ou la portabilité de vos données. Contact : vincent@plyd.eu."
+      },
+      "contact": {
+        "title": "Contact",
+        "body": "Vinland SASU — Vincent Juhel — Rennes, France — vincent@plyd.eu."
+      }
+    }
+  },
+  "aiPage": {
+    "title": "Mention IA",
+    "lastUpdated": "Dernière mise à jour : avril 2026",
+    "intro": "Le chat de ce site est animé par un agent IA, pas un humain. Cette page explique comment il fonctionne, ce qu'il peut faire et ne pas faire, et comment joindre une personne réelle.",
+    "sections": {
+      "what": {
+        "title": "Ce que c'est",
+        "body": "Un agent LangGraph qui orchestre plusieurs grands modèles de langage (Anthropic Claude, OpenAI GPT, Google Gemini) routés via litellm selon le type de question. Il dispose d'un petit ensemble d'outils pour rechercher dans le CV de Vincent, scorer une offre, qualifier un lead et organiser un rendez-vous."
+      },
+      "guardrails": {
+        "title": "Garde-fous",
+        "body": "Conformément aux principes ISO 42001, l'agent ne ment pas, ne divulgue pas de données personnelles, ne donne pas de TJM, et refuse les tentatives de jailbreak. Il répond toujours dans la langue du dernier message reçu."
+      },
+      "limits": {
+        "title": "Ses limites",
+        "body": "Comme tout LLM, il peut halluciner. Si une réponse contredit le CV ou le site, faites confiance au site, pas à l'agent. En cas de doute, demandez une mise en relation ou un rendez-vous avec Vincent."
+      },
+      "transparency": {
+        "title": "Transparence",
+        "body": "Les conversations sont tracées via LangFuse pour évaluation et amélioration. Vos messages ne sont pas utilisés pour entraîner des modèles. Les appels d'outils sont visibles dans le chat (ex. « Recherche dans le parcours de Vincent… »)."
+      },
+      "human": {
+        "title": "Joindre un humain",
+        "body": "À tout moment vous pouvez demander à l'agent un rendez-vous (Cal.com) ou un email à Vincent. Vous pouvez aussi écrire directement à vincent@plyd.eu."
+      }
+    }
   },
   "footer": {
     "rights": "Tous droits réservés.",

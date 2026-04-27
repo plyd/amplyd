@@ -31,21 +31,7 @@
   },
   "projects": {
     "eyebrow": "Projects",
-    "title": "Selected work.",
-    "items": {
-      "amplyd": {
-        "title": "Amplyd",
-        "blurb": "This very site. AI-native CV with a LangGraph agent, MCP server and ISO 42001 guardrails."
-      },
-      "rag": {
-        "title": "Production RAG",
-        "blurb": "Hybrid BM25 + embeddings retrieval, multi-LLM routing, evaluated and observable."
-      },
-      "governance": {
-        "title": "ISO 42001 governance",
-        "blurb": "AI management system: risk register, evaluation harnesses, traceability."
-      }
-    }
+    "title": "Selected work."
   },
   "chat": {
     "title": "Ask Vincent's AI agent",
@@ -62,6 +48,64 @@
     "title": "Articles",
     "subtitle": "Notes on agents, RAG, routing and governance.",
     "readMore": "Read more"
+  },
+  "privacyPage": {
+    "title": "Privacy",
+    "lastUpdated": "Last updated: April 2026",
+    "intro": "This site is operated by Vincent Juhel through Vinland SASU, headquartered in Rennes, France. We respect your privacy and only collect what is strictly necessary to answer your questions and let you book a meeting.",
+    "sections": {
+      "data": {
+        "title": "What we collect",
+        "body": "Chat messages you send to the AI agent, an optional email address if you choose to book a meeting or request an introduction, and basic technical logs (IP address, user-agent) for security and rate limiting."
+      },
+      "purpose": {
+        "title": "Why",
+        "body": "To answer your questions about Vincent's work, qualify recruiting leads, and notify Vincent when someone wants to talk to him directly. No advertising, no profiling, no resale."
+      },
+      "where": {
+        "title": "Where data is processed",
+        "body": "Frontend: Vercel (EU regions). Agent: Google Cloud Run, europe-west1. LLM providers: Anthropic, OpenAI, Google (their own data policies apply — none of them are used for training on your content). Email: Resend. Booking: Cal.com."
+      },
+      "retention": {
+        "title": "How long",
+        "body": "Chat sessions: 30 days. Emails sent to Vincent: kept as long as the conversation is relevant. Aggregated traces (LangFuse) are anonymised after 90 days."
+      },
+      "rights": {
+        "title": "Your rights (GDPR)",
+        "body": "You can ask for access, correction, deletion or portability of your data at any time. Contact: vincent@plyd.eu."
+      },
+      "contact": {
+        "title": "Contact",
+        "body": "Vinland SASU — Vincent Juhel — Rennes, France — vincent@plyd.eu."
+      }
+    }
+  },
+  "aiPage": {
+    "title": "AI agent disclosure",
+    "lastUpdated": "Last updated: April 2026",
+    "intro": "The chat on this site is powered by an AI agent, not a human. This page explains how it works, what it can and cannot do, and how to reach a human.",
+    "sections": {
+      "what": {
+        "title": "What it is",
+        "body": "A LangGraph agent orchestrating multiple large language models (Anthropic Claude, OpenAI GPT, Google Gemini) routed via litellm based on the question type. It has access to a small set of tools to search Vincent's CV, score job descriptions, qualify recruiting leads, and book a meeting."
+      },
+      "guardrails": {
+        "title": "Guardrails",
+        "body": "Following ISO 42001 principles, the agent will not lie, will not leak personal data, will not quote a daily rate (TJM), and will refuse jailbreak attempts. It always answers in the language you wrote in."
+      },
+      "limits": {
+        "title": "What it can get wrong",
+        "body": "Like any LLM, it can hallucinate. If it answers something that contradicts the CV or this site, trust the site, not the agent. When in doubt, ask for an introduction or book a meeting with Vincent directly."
+      },
+      "transparency": {
+        "title": "Transparency",
+        "body": "Conversations are traced through LangFuse for evaluation and improvement. We do not use your messages to train models. Tool calls are visible in the chat (e.g. \"Searching Vincent's experience…\")."
+      },
+      "human": {
+        "title": "Reach a human",
+        "body": "At any point you can ask the agent to schedule a meeting (Cal.com) or trigger an email to Vincent. You can also write directly to vincent@plyd.eu."
+      }
+    }
   },
   "footer": {
     "rights": "All rights reserved.",

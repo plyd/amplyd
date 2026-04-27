@@ -1,0 +1,20 @@
+[
+  {
+    "period": "20XX — now",
+    "title": "Your current role",
+    "company": "Company",
+    "blurb": "One-line description of what you do and the impact."
+  },
+  {
+    "period": "20XX — 20XX",
+    "title": "Previous role",
+    "company": "Company",
+    "blurb": "One-line description."
+  },
+  {
+    "period": "20XX — 20XX",
+    "title": "Earlier role",
+    "company": "Company",
+    "blurb": "One-line description."
+  }
+]
