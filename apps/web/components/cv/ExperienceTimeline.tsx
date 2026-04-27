@@ -34,7 +34,7 @@ export async function ExperienceTimeline({ locale }: { locale: string }) {
   const t = await getTranslations({ locale, namespace: 'experience' });
 
   return (
-    <section id="experience" className="py-24">
+    <section id="cv" className="scroll-mt-20 py-24">
       <Container className="flex flex-col gap-10">
         <header className="flex flex-col gap-2">
           <p className="font-mono text-xs uppercase tracking-[0.25em] text-[var(--color-accent)]">

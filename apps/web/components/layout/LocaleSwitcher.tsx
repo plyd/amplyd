@@ -1,8 +1,8 @@
 'use client';
 
 import { useLocale } from 'next-intl';
-import { usePathname, useRouter } from 'next/navigation';
 import { useTransition } from 'react';
+import { useRouter, usePathname } from '@/i18n/navigation';
 import { routing, type Locale } from '@/i18n/routing';
 import { cn } from '@/lib/utils';
 
@@ -14,9 +14,9 @@ export function LocaleSwitcher() {
 
   const switchTo = (next: Locale) => {
     if (next === locale) return;
-    // pathname looks like /en/foo/bar -> swap leading segment
-    const rest = pathname.replace(/^\/(en|fr)/, '') || '/';
-    start(() => router.replace(`/${next}${rest === '/' ? '' : rest}`));
+    start(() => {
+      router.replace(pathname, { locale: next });
+    });
   };
 
   return (
