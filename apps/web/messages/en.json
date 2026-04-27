@@ -1,0 +1,32 @@
+{
+  "metadata": {
+    "title": "Amplyd — AI-native CV",
+    "description": "An AI agent you can talk to about my work, projects, and availability."
+  },
+  "nav": {
+    "home": "Home",
+    "articles": "Articles",
+    "github": "GitHub"
+  },
+  "hero": {
+    "tagline": "Senior AI architect. Open to freelance and senior CDI roles.",
+    "ctaChat": "Talk to my AI agent",
+    "ctaCV": "Read the CV"
+  },
+  "chat": {
+    "title": "Ask Vincent's AI agent",
+    "placeholder": "Type a message…",
+    "send": "Send",
+    "disclosure": "I'm an AI. I won't lie, leak personal data, or quote a TJM.",
+    "suggestions": {
+      "matchJD": "Match a job description",
+      "strongestProject": "What's his strongest project?",
+      "reachHim": "How do I reach him?"
+    }
+  },
+  "footer": {
+    "rights": "All rights reserved.",
+    "privacy": "Privacy",
+    "ai": "AI agent disclosure"
+  }
+}

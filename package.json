@@ -1,0 +1,33 @@
+{
+  "name": "amplyd",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Amplyd — an AI-native, agentic CV. Open-source template forked-from build.",
+  "license": "MIT",
+  "author": "Vincent Juhel <vincent.juhel@gmail.com> (https://github.com/plyd)",
+  "homepage": "https://amplyd.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/plyd/amplyd.git"
+  },
+  "packageManager": "pnpm@10.5.2",
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=9.0.0"
+  },
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "type-check": "turbo run type-check",
+    "test": "turbo run test",
+    "format": "prettier --write \"**/*.{ts,tsx,md,json,yml,yaml}\" --ignore-path .gitignore",
+    "format:check": "prettier --check \"**/*.{ts,tsx,md,json,yml,yaml}\" --ignore-path .gitignore",
+    "setup-content": "node scripts/setup-content.mjs",
+    "postinstall": "pnpm setup-content"
+  },
+  "devDependencies": {
+    "prettier": "^3.3.3",
+    "turbo": "^2.3.3"
+  }
+}

@@ -1,0 +1,68 @@
+# --- Vincent's private data — NEVER commit ---
+# The live content lived next to apps/web/content.example/. Real CV data
+# (and the brief, Notion exports, etc.) stay local-only.
+_private/
+apps/web/content/
+!apps/web/content/.gitkeep
+
+# --- Node / pnpm / Turbo ---
+node_modules/
+.pnpm-store/
+.turbo/
+.next/
+out/
+dist/
+build/
+.cache/
+*.tsbuildinfo
+next-env.d.ts
+
+# --- Env files ---
+.env
+.env.*
+!.env.example
+
+# --- Python (apps/agent) ---
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+.env.venv
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+*.egg-info/
+
+# --- Terraform ---
+infra/terraform/.terraform/
+infra/terraform/*.tfstate
+infra/terraform/*.tfstate.*
+infra/terraform/*.tfvars
+!infra/terraform/*.tfvars.example
+infra/terraform/.terraform.lock.hcl
+
+# --- OS / IDE ---
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# --- Logs ---
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# --- Vercel ---
+.vercel
+
+# --- Misc ---
+coverage/
+.nyc_output/

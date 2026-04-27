@@ -1,0 +1,32 @@
+{
+  "metadata": {
+    "title": "Amplyd — un CV IA-native",
+    "description": "Un agent IA avec qui discuter de mon parcours, mes projets et ma disponibilité."
+  },
+  "nav": {
+    "home": "Accueil",
+    "articles": "Articles",
+    "github": "GitHub"
+  },
+  "hero": {
+    "tagline": "Architecte IA senior. Ouvert aux missions freelance et postes CDI senior.",
+    "ctaChat": "Parler à mon agent IA",
+    "ctaCV": "Lire le CV"
+  },
+  "chat": {
+    "title": "Posez vos questions à l'agent IA de Vincent",
+    "placeholder": "Tapez un message…",
+    "send": "Envoyer",
+    "disclosure": "Je suis une IA. Je ne mens pas, ne divulgue pas de données privées, et ne donne pas de TJM.",
+    "suggestions": {
+      "matchJD": "Matcher une offre",
+      "strongestProject": "Son projet le plus fort ?",
+      "reachHim": "Comment le contacter ?"
+    }
+  },
+  "footer": {
+    "rights": "Tous droits réservés.",
+    "privacy": "Confidentialité",
+    "ai": "Mention IA"
+  }
+}
