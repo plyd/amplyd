@@ -13,6 +13,40 @@
     "ctaChat": "Talk to my AI agent",
     "ctaCV": "Read the CV"
   },
+  "experience": {
+    "eyebrow": "Experience",
+    "title": "Twenty years building useful systems."
+  },
+  "skills": {
+    "eyebrow": "Skills · 2026",
+    "title": "Stack I ship to production.",
+    "groups": {
+      "agents": "Agents & orchestration",
+      "rag": "Retrieval & RAG",
+      "routing": "Multi-LLM routing",
+      "governance": "Governance & safety",
+      "platform": "Platform & infra",
+      "languages": "Languages"
+    }
+  },
+  "projects": {
+    "eyebrow": "Projects",
+    "title": "Selected work.",
+    "items": {
+      "amplyd": {
+        "title": "Amplyd",
+        "blurb": "This very site. AI-native CV with a LangGraph agent, MCP server and ISO 42001 guardrails."
+      },
+      "rag": {
+        "title": "Production RAG",
+        "blurb": "Hybrid BM25 + embeddings retrieval, multi-LLM routing, evaluated and observable."
+      },
+      "governance": {
+        "title": "ISO 42001 governance",
+        "blurb": "AI management system: risk register, evaluation harnesses, traceability."
+      }
+    }
+  },
   "chat": {
     "title": "Ask Vincent's AI agent",
     "placeholder": "Type a message…",
@@ -23,6 +57,11 @@
       "strongestProject": "What's his strongest project?",
       "reachHim": "How do I reach him?"
     }
+  },
+  "articles": {
+    "title": "Articles",
+    "subtitle": "Notes on agents, RAG, routing and governance.",
+    "readMore": "Read more"
   },
   "footer": {
     "rights": "All rights reserved.",

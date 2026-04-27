@@ -13,6 +13,40 @@
     "ctaChat": "Parler à mon agent IA",
     "ctaCV": "Lire le CV"
   },
+  "experience": {
+    "eyebrow": "Expérience",
+    "title": "Vingt ans à construire des systèmes utiles."
+  },
+  "skills": {
+    "eyebrow": "Compétences · 2026",
+    "title": "Stack que j'envoie en production.",
+    "groups": {
+      "agents": "Agents & orchestration",
+      "rag": "Recherche & RAG",
+      "routing": "Routage multi-LLM",
+      "governance": "Gouvernance & sécurité",
+      "platform": "Plateforme & infra",
+      "languages": "Langages"
+    }
+  },
+  "projects": {
+    "eyebrow": "Projets",
+    "title": "Travaux sélectionnés.",
+    "items": {
+      "amplyd": {
+        "title": "Amplyd",
+        "blurb": "Ce site. CV IA-native avec agent LangGraph, serveur MCP et garde-fous ISO 42001."
+      },
+      "rag": {
+        "title": "RAG en production",
+        "blurb": "Recherche hybride BM25 + embeddings, routage multi-LLM, évalué et observable."
+      },
+      "governance": {
+        "title": "Gouvernance ISO 42001",
+        "blurb": "Système de management IA : registre de risques, évaluations, traçabilité."
+      }
+    }
+  },
   "chat": {
     "title": "Posez vos questions à l'agent IA de Vincent",
     "placeholder": "Tapez un message…",
@@ -23,6 +57,11 @@
       "strongestProject": "Son projet le plus fort ?",
       "reachHim": "Comment le contacter ?"
     }
+  },
+  "articles": {
+    "title": "Articles",
+    "subtitle": "Notes sur les agents, le RAG, le routage et la gouvernance.",
+    "readMore": "Lire la suite"
   },
   "footer": {
     "rights": "Tous droits réservés.",
