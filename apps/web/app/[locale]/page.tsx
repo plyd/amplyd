@@ -1,9 +1,6 @@
 import { setRequestLocale } from 'next-intl/server';
 import { Hero } from '@/components/hero/Hero';
-import { ExperienceTimeline } from '@/components/cv/ExperienceTimeline';
-import { EducationGrid } from '@/components/cv/EducationGrid';
-import { SkillsGrid } from '@/components/cv/SkillsGrid';
-import { ProjectGrid } from '@/components/cv/ProjectGrid';
+import { Resume } from '@/components/cv/Resume';
 
 export default async function HomePage({
   params,
@@ -16,10 +13,7 @@ export default async function HomePage({
   return (
     <>
       <Hero locale={locale} />
-      <ExperienceTimeline locale={locale} />
-      <EducationGrid locale={locale} />
-      <SkillsGrid locale={locale} />
-      <ProjectGrid locale={locale} />
+      <Resume locale={locale} />
     </>
   );
 }

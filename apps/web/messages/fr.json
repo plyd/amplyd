@@ -1,29 +1,34 @@
 {
   "metadata": {
-    "title": "Amplyd — un CV IA-native",
-    "description": "Un agent IA avec qui discuter de mon parcours, mes projets et ma disponibilité."
+    "title": "Vincent Juhel — Architecte IA senior",
+    "description": "CV agentique de Vincent Juhel. Posez vos questions, matchez une offre, ou réservez un appel."
   },
   "nav": {
-    "home": "Accueil",
+    "home": "CV",
     "articles": "Articles",
     "github": "GitHub"
   },
   "hero": {
-    "tagline": "Architecte IA senior. Ouvert aux missions freelance et postes CDI senior.",
-    "ctaChat": "Parler à mon agent IA",
-    "ctaCV": "Lire le CV"
+    "role": "Architecte IA senior",
+    "location": "Rennes, France",
+    "facts": "20 ans XP · ISO/IEC 42001 · INSA · HEC · MIT",
+    "tagline": "Ouvert aux missions freelance et postes CDI senior. Agents, RAG, gouvernance — du POC à la prod.",
+    "ctaChat": "Parler à l'agent IA",
+    "ctaCV": "Voir le CV"
   },
-  "experience": {
-    "eyebrow": "Expérience",
-    "title": "Vingt ans à construire des systèmes utiles."
-  },
-  "education": {
-    "eyebrow": "Formation",
-    "title": "Diplômes & certifications."
+  "resume": {
+    "sections": {
+      "experience": "Expérience",
+      "education": "Formation",
+      "skills": "Compétences",
+      "projects": "Projets sélectionnés",
+      "languages": "Langues",
+      "contact": "Contact"
+    },
+    "languagesList": "Français · langue maternelle\nAnglais · courant",
+    "contactBody": "Tout passe par l'agent IA. Il qualifie la demande puis transmet à Vincent."
   },
   "skills": {
-    "eyebrow": "Compétences · 2026",
-    "title": "Stack que j'envoie en production.",
     "groups": {
       "agents": "Agents & orchestration",
       "rag": "Recherche & RAG",
@@ -33,19 +38,16 @@
       "languages": "Langages"
     }
   },
-  "projects": {
-    "eyebrow": "Projets",
-    "title": "Travaux sélectionnés."
-  },
   "chat": {
-    "title": "Posez vos questions à l'agent IA de Vincent",
-    "placeholder": "Tapez un message…",
+    "title": "Agent IA · Vincent Juhel",
+    "placeholder": "Décrivez votre mission, votre offre, ou demandez un rendez-vous.",
     "send": "Envoyer",
-    "disclosure": "Je suis une IA. Je ne mens pas, ne divulgue pas de données privées, et ne donne pas de TJM.",
+    "disclosure": "Agent IA. Vos messages parviennent à Vincent.",
+    "learnMore": "En savoir plus",
     "suggestions": {
       "matchJD": "Matcher une offre",
-      "strongestProject": "Son projet le plus fort ?",
-      "reachHim": "Comment le contacter ?"
+      "strongestProject": "Son projet le plus fort",
+      "reachHim": "Caler un rendez-vous"
     }
   },
   "articles": {
@@ -114,6 +116,7 @@
   "footer": {
     "rights": "Tous droits réservés.",
     "privacy": "Confidentialité",
-    "ai": "Mention IA"
+    "ai": "Mention IA",
+    "builtWith": "Site agentique propulsé par"
   }
 }

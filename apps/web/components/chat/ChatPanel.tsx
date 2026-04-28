@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { Send, Sparkles } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -11,6 +11,7 @@ import { cn } from '@/lib/utils';
  */
 export function ChatPanel() {
   const t = useTranslations('chat');
+  const locale = useLocale();
   const [draft, setDraft] = useState('');
 
   const suggestions = [
@@ -32,7 +33,13 @@ export function ChatPanel() {
 
         <div className="flex flex-1 flex-col gap-3 overflow-y-auto px-5 py-5">
           <p className="rounded-lg border border-[var(--color-border)] bg-[var(--color-bg)] p-3 text-xs text-[var(--color-text-muted)]">
-            {t('disclosure')}
+            {t('disclosure')}{' '}
+            <a
+              href={`/${locale}/ai-disclosure`}
+              className="text-[var(--color-accent)] hover:underline"
+            >
+              {t('learnMore')}
+            </a>
           </p>
           <div className="mt-2 flex flex-col gap-2">
             {suggestions.map((s) => (

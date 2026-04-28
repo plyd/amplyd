@@ -12,9 +12,10 @@ export async function Header({ locale }: { locale: string }) {
       <Container className="flex h-16 items-center justify-between">
         <Link
           href={`/${locale}`}
-          className="font-mono text-sm font-semibold tracking-widest text-[var(--color-accent)]"
+          className="flex items-center gap-2 text-sm font-semibold tracking-tight text-[var(--color-text-primary)]"
         >
-          amplyd
+          <span className="font-mono text-[var(--color-accent)]">VJ</span>
+          <span>Vincent Juhel</span>
         </Link>
 
         <nav className="hidden items-center gap-6 text-sm md:flex">

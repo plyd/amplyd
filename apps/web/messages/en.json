@@ -1,29 +1,34 @@
 {
   "metadata": {
-    "title": "Amplyd — AI-native CV",
-    "description": "An AI agent you can talk to about my work, projects, and availability."
+    "title": "Vincent Juhel — Senior AI Architect",
+    "description": "Vincent Juhel's agentic résumé. Ask anything, match a JD, or book a call."
   },
   "nav": {
-    "home": "Home",
+    "home": "Resume",
     "articles": "Articles",
     "github": "GitHub"
   },
   "hero": {
-    "tagline": "Senior AI architect. Open to freelance and senior CDI roles.",
-    "ctaChat": "Talk to my AI agent",
-    "ctaCV": "Read the CV"
+    "role": "Senior AI Architect",
+    "location": "Rennes, France",
+    "facts": "20 yrs XP · ISO/IEC 42001 · INSA · HEC · MIT",
+    "tagline": "Open to freelance missions and senior CDI roles. Agents, RAG, governance — POC to production.",
+    "ctaChat": "Talk to the AI agent",
+    "ctaCV": "Read the resume"
   },
-  "experience": {
-    "eyebrow": "Experience",
-    "title": "Twenty years building useful systems."
-  },
-  "education": {
-    "eyebrow": "Education",
-    "title": "Degrees & certifications."
+  "resume": {
+    "sections": {
+      "experience": "Experience",
+      "education": "Education",
+      "skills": "Skills",
+      "projects": "Selected projects",
+      "languages": "Languages",
+      "contact": "Contact"
+    },
+    "languagesList": "French · native\nEnglish · fluent",
+    "contactBody": "Everything goes through the AI agent. It qualifies the request, then forwards it to Vincent."
   },
   "skills": {
-    "eyebrow": "Skills · 2026",
-    "title": "Stack I ship to production.",
     "groups": {
       "agents": "Agents & orchestration",
       "rag": "Retrieval & RAG",
@@ -33,19 +38,16 @@
       "languages": "Languages"
     }
   },
-  "projects": {
-    "eyebrow": "Projects",
-    "title": "Selected work."
-  },
   "chat": {
-    "title": "Ask Vincent's AI agent",
-    "placeholder": "Type a message…",
+    "title": "AI agent · Vincent Juhel",
+    "placeholder": "Share a role, a mission, or request a meeting.",
     "send": "Send",
-    "disclosure": "I'm an AI. I won't lie, leak personal data, or quote a TJM.",
+    "disclosure": "AI agent. Your messages reach Vincent.",
+    "learnMore": "Learn more",
     "suggestions": {
       "matchJD": "Match a job description",
-      "strongestProject": "What's his strongest project?",
-      "reachHim": "How do I reach him?"
+      "strongestProject": "His strongest project",
+      "reachHim": "Book a meeting"
     }
   },
   "articles": {
@@ -114,6 +116,7 @@
   "footer": {
     "rights": "All rights reserved.",
     "privacy": "Privacy",
-    "ai": "AI agent disclosure"
+    "ai": "AI agent disclosure",
+    "builtWith": "Agentic site powered by"
   }
 }

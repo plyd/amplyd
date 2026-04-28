@@ -4,8 +4,8 @@ import './globals.css';
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? 'https://amplyd.com'),
   title: {
-    default: 'Amplyd',
-    template: '%s — Amplyd',
+    default: 'Vincent Juhel',
+    template: '%s — Vincent Juhel',
   },
 };
 
