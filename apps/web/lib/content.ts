@@ -25,6 +25,8 @@ export const TimelineEntrySchema = z.object({
   narrative: z.string().optional(),
   anecdotes: z.array(z.string().min(1)).optional(),
   achievements: z.array(z.string().min(1)).optional(),
+  outcomes: z.array(z.string().min(1)).optional(),
+  lessons: z.array(z.string().min(1)).optional(),
   stack: z.array(z.string().min(1)).optional(),
   keywords: z.array(z.string().min(1)).optional(),
   context: z.string().optional(),
