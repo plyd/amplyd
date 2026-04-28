@@ -11,6 +11,7 @@ permissions:
   id-token: write
 
 env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
   GCP_PROJECT_ID: amplyd
   GCP_REGION: europe-west1
   ARTIFACT_REGISTRY_REPO: amplyd
