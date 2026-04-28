@@ -3,6 +3,7 @@ import { getTranslations } from 'next-intl/server';
 import { Github } from 'lucide-react';
 import { Container } from '@/components/ui/Container';
 import { LocaleSwitcher } from './LocaleSwitcher';
+import { SignInButton } from '@/components/auth/SignInButton';
 
 export async function Header({ locale }: { locale: string }) {
   const t = await getTranslations({ locale, namespace: 'nav' });
@@ -42,7 +43,10 @@ export async function Header({ locale }: { locale: string }) {
           </a>
         </nav>
 
-        <LocaleSwitcher />
+        <div className="flex items-center gap-2">
+          <SignInButton className="hidden sm:inline-flex" />
+          <LocaleSwitcher />
+        </div>
       </Container>
     </header>
   );

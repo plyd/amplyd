@@ -1,19 +1,24 @@
 {
   "metadata": {
     "title": "Vincent Juhel — Senior AI Architect",
-    "description": "Vincent Juhel's agentic résumé. Ask anything, match a JD, or book a call."
+    "description": "Vincent Juhel's résumé. Ask anything, match a JD, or book a call."
   },
   "nav": {
     "home": "Resume",
     "articles": "Articles",
     "github": "GitHub"
   },
+  "auth": {
+    "signIn": "Sign in",
+    "signOut": "Sign out"
+  },
   "hero": {
     "role": "Senior AI Architect",
-    "location": "Rennes, France",
+    "location": "Rennes & Paris, France",
+    "remote": "Full remote or hybrid",
     "facts": "20 yrs XP · ISO/IEC 42001 · INSA · HEC · MIT",
     "tagline": "Open to freelance missions and senior CDI roles. Agents, RAG, governance — POC to production.",
-    "ctaChat": "Talk to the AI agent",
+    "ctaChat": "Contact Vincent",
     "ctaCV": "Read the resume"
   },
   "resume": {
@@ -26,7 +31,7 @@
       "contact": "Contact"
     },
     "languagesList": "French · native\nEnglish · fluent",
-    "contactBody": "Everything goes through the AI agent. It qualifies the request, then forwards it to Vincent."
+    "contactBody": "The fastest way: drop a message in the \"Contact Vincent\" panel. Vincent replies personally."
   },
   "skills": {
     "groups": {
@@ -39,10 +44,15 @@
     }
   },
   "chat": {
-    "title": "AI agent · Vincent Juhel",
+    "title": "Contact Vincent",
+    "status": "Online",
+    "agentLabel": "AI agent",
+    "youLabel": "You",
+    "intro": "Mission, role, or a chat — leave a message and Vincent will get back to you.",
     "placeholder": "Share a role, a mission, or request a meeting.",
     "send": "Send",
-    "disclosure": "AI agent. Your messages reach Vincent.",
+    "error": "Something went wrong. Try again in a moment.",
+    "legalHint": "Your messages are processed under our privacy policy.",
     "learnMore": "Learn more",
     "suggestions": {
       "matchJD": "Match a job description",
@@ -62,7 +72,7 @@
     "sections": {
       "data": {
         "title": "What we collect",
-        "body": "Chat messages you send to the AI agent, an optional email address if you choose to book a meeting or request an introduction, and basic technical logs (IP address, user-agent) for security and rate limiting."
+        "body": "Chat messages you send through the contact panel, an optional email address if you choose to book a meeting or request an introduction, and basic technical logs (IP address, user-agent) for security and rate limiting."
       },
       "purpose": {
         "title": "Why",
@@ -78,11 +88,11 @@
       },
       "rights": {
         "title": "Your rights (GDPR)",
-        "body": "You can ask for access, correction, deletion or portability of your data at any time. Use the AI agent on the home page to send Vincent a message, or book a meeting via Cal.com."
+        "body": "You can ask for access, correction, deletion or portability of your data at any time. Use the contact panel on the home page to send Vincent a message, or book a meeting via Cal.com."
       },
       "contact": {
         "title": "Contact",
-        "body": "Vinland SASU — Vincent Juhel — Rennes, France. Reach out via the AI agent or the booking link."
+        "body": "Vinland SASU — Vincent Juhel — Rennes, France. Reach out via the contact panel or the booking link."
       }
     }
   },

@@ -15,9 +15,10 @@ export async function Hero({ locale }: { locale: string }) {
           <h1 className="font-display text-3xl font-bold leading-tight tracking-tight md:text-5xl">
             Vincent Juhel
           </h1>
-          <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-[var(--color-text-muted)] md:text-xs">
-            {t('location')}
-          </p>
+          <div className="flex flex-col items-end gap-0.5 font-mono text-[10px] uppercase tracking-[0.3em] text-[var(--color-text-muted)] md:text-xs">
+            <span>{t('location')}</span>
+            <span>{t('remote')}</span>
+          </div>
         </div>
         <p className="text-base text-[var(--color-text-secondary)] md:text-lg">
           <span className="text-[var(--color-text-primary)]">{t('role')}</span>

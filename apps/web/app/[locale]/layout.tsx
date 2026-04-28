@@ -7,6 +7,7 @@ import { routing } from '@/i18n/routing';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { ChatPanel } from '@/components/chat/ChatPanel';
+import { SessionProvider } from '@/components/auth/SessionProvider';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -52,14 +53,16 @@ export default async function LocaleLayout({
     <html lang={locale} className={`${inter.variable} ${jetbrains.variable}`}>
       <body className="min-h-screen bg-[var(--color-bg)] text-[var(--color-text-primary)] antialiased">
         <NextIntlClientProvider>
-          <div className="flex min-h-screen flex-col lg:flex-row">
-            <div className="flex min-w-0 flex-1 flex-col">
-              <Header locale={locale} />
-              <main className="flex-1">{children}</main>
-              <Footer locale={locale} />
+          <SessionProvider>
+            <div className="flex min-h-screen flex-col lg:flex-row">
+              <div className="flex min-w-0 flex-1 flex-col">
+                <Header locale={locale} />
+                <main className="flex-1">{children}</main>
+                <Footer locale={locale} />
+              </div>
+              <ChatPanel />
             </div>
-            <ChatPanel />
-          </div>
+          </SessionProvider>
         </NextIntlClientProvider>
       </body>
     </html>

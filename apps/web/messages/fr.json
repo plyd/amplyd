@@ -1,19 +1,24 @@
 {
   "metadata": {
     "title": "Vincent Juhel — Architecte IA senior",
-    "description": "CV agentique de Vincent Juhel. Posez vos questions, matchez une offre, ou réservez un appel."
+    "description": "CV de Vincent Juhel. Posez vos questions, matchez une offre, ou réservez un appel."
   },
   "nav": {
     "home": "CV",
     "articles": "Articles",
     "github": "GitHub"
   },
+  "auth": {
+    "signIn": "Se connecter",
+    "signOut": "Déconnexion"
+  },
   "hero": {
     "role": "Architecte IA senior",
-    "location": "Rennes, France",
+    "location": "Rennes & Paris, France",
+    "remote": "Full remote ou hybride",
     "facts": "20 ans XP · ISO/IEC 42001 · INSA · HEC · MIT",
     "tagline": "Ouvert aux missions freelance et postes CDI senior. Agents, RAG, gouvernance — du POC à la prod.",
-    "ctaChat": "Parler à l'agent IA",
+    "ctaChat": "Contacter Vincent",
     "ctaCV": "Voir le CV"
   },
   "resume": {
@@ -26,7 +31,7 @@
       "contact": "Contact"
     },
     "languagesList": "Français · langue maternelle\nAnglais · courant",
-    "contactBody": "Tout passe par l'agent IA. Il qualifie la demande puis transmet à Vincent."
+    "contactBody": "Le moyen le plus rapide : laissez un message dans le panneau « Contacter Vincent ». Vincent vous répond personnellement."
   },
   "skills": {
     "groups": {
@@ -39,10 +44,15 @@
     }
   },
   "chat": {
-    "title": "Agent IA · Vincent Juhel",
+    "title": "Contacter Vincent",
+    "status": "En ligne",
+    "agentLabel": "Agent IA",
+    "youLabel": "Vous",
+    "intro": "Mission, poste, ou simple échange — laissez un message et Vincent vous reviendra.",
     "placeholder": "Décrivez votre mission, votre offre, ou demandez un rendez-vous.",
     "send": "Envoyer",
-    "disclosure": "Agent IA. Vos messages parviennent à Vincent.",
+    "error": "Une erreur est survenue. Réessayez dans un instant.",
+    "legalHint": "Vos messages sont traités selon notre politique de confidentialité.",
     "learnMore": "En savoir plus",
     "suggestions": {
       "matchJD": "Matcher une offre",
@@ -62,7 +72,7 @@
     "sections": {
       "data": {
         "title": "Ce que nous collectons",
-        "body": "Les messages que vous envoyez à l'agent IA, une adresse email optionnelle si vous demandez un rendez-vous ou une mise en relation, et des journaux techniques basiques (adresse IP, user-agent) pour la sécurité et la limitation de débit."
+        "body": "Les messages que vous envoyez via le panneau de contact, une adresse email optionnelle si vous demandez un rendez-vous ou une mise en relation, et des journaux techniques basiques (adresse IP, user-agent) pour la sécurité et la limitation de débit."
       },
       "purpose": {
         "title": "Pourquoi",
@@ -78,11 +88,11 @@
       },
       "rights": {
         "title": "Vos droits (RGPD)",
-        "body": "Vous pouvez à tout moment demander l'accès, la rectification, la suppression ou la portabilité de vos données. Passez par l'agent IA sur la page d'accueil pour transmettre un message à Vincent, ou réservez un rendez-vous via Cal.com."
+        "body": "Vous pouvez à tout moment demander l'accès, la rectification, la suppression ou la portabilité de vos données. Passez par le panneau de contact pour transmettre un message à Vincent, ou réservez un rendez-vous via Cal.com."
       },
       "contact": {
         "title": "Contact",
-        "body": "Vinland SASU — Vincent Juhel — Rennes, France. Contact via l'agent IA ou le lien de prise de rendez-vous."
+        "body": "Vinland SASU — Vincent Juhel — Rennes, France. Contact via le panneau de contact ou le lien de prise de rendez-vous."
       }
     }
   },
