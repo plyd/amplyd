@@ -1,5 +1,6 @@
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
+import { z } from 'zod';
 
 export type ArticleMeta = {
   slug: string;
@@ -8,27 +9,91 @@ export type ArticleMeta = {
   draft: boolean;
 };
 
-export type TimelineEntry = {
-  period: string;
-  title: string;
-  company: string;
-  blurb: string;
-};
+// ──────────────────────────────────────────────────────────────────────────
+// Schemas (Zod) — single source of truth for both runtime validation and types.
+// All long-form fields are optional so existing JSON files keep working.
+// ──────────────────────────────────────────────────────────────────────────
 
-export type ProjectEntry = {
-  key: string;
-  title: string;
-  blurb: string;
-  href?: string;
-  stack: string[];
-};
+export const TimelineEntrySchema = z.object({
+  // Compact (rendered by default)
+  period: z.string().min(1),
+  title: z.string().min(1),
+  company: z.string().min(1),
+  blurb: z.string().min(1),
 
-export type EducationEntry = {
-  year: string;
-  institution: string;
-  title: string;
-  blurb: string;
-};
+  // Long-form (read by the LLM, optionally surfaced via CvView)
+  narrative: z.string().optional(),
+  anecdotes: z.array(z.string().min(1)).optional(),
+  achievements: z.array(z.string().min(1)).optional(),
+  stack: z.array(z.string().min(1)).optional(),
+  keywords: z.array(z.string().min(1)).optional(),
+  context: z.string().optional(),
+});
+
+export const ProjectEntrySchema = z.object({
+  key: z.string().min(1),
+  title: z.string().min(1),
+  blurb: z.string().min(1),
+  href: z.string().url().optional(),
+  stack: z.array(z.string().min(1)),
+
+  narrative: z.string().optional(),
+  anecdotes: z.array(z.string().min(1)).optional(),
+  outcomes: z.array(z.string().min(1)).optional(),
+  lessons: z.array(z.string().min(1)).optional(),
+  keywords: z.array(z.string().min(1)).optional(),
+  context: z.string().optional(),
+});
+
+export const EducationEntrySchema = z.object({
+  year: z.string().min(1),
+  institution: z.string().min(1),
+  title: z.string().min(1),
+  blurb: z.string().min(1),
+
+  narrative: z.string().optional(),
+  why: z.string().optional(),
+  highlights: z.array(z.string().min(1)).optional(),
+});
+
+export const SKILL_GROUP_KEYS = [
+  'agents',
+  'rag',
+  'routing',
+  'governance',
+  'platform',
+  'languages',
+] as const;
+
+export const SkillEntrySchema = z.object({
+  group: z.enum(SKILL_GROUP_KEYS),
+  name: z.string().min(1),
+  level: z.enum(['exposure', 'working', 'expert']).optional(),
+  years_xp: z.number().int().nonnegative().optional(),
+  evidence_project_keys: z.array(z.string().min(1)).optional(),
+  story: z.string().optional(),
+});
+
+export const PreferencesSchema = z.object({
+  remote: z.enum(['full', 'hybrid', 'onsite']),
+  locations: z.array(z.string().min(1)),
+  availability: z.string().optional(),
+  contract_types: z.array(z.enum(['freelance', 'cdi'])),
+  sectors_of_interest: z.array(z.string().min(1)).optional(),
+  values: z.string().optional(),
+  red_flags: z.array(z.string().min(1)).optional(),
+});
+
+export type TimelineEntry = z.infer<typeof TimelineEntrySchema>;
+export type ProjectEntry = z.infer<typeof ProjectEntrySchema>;
+export type EducationEntry = z.infer<typeof EducationEntrySchema>;
+export type SkillEntry = z.infer<typeof SkillEntrySchema>;
+export type Preferences = z.infer<typeof PreferencesSchema>;
+export type SkillGroupKey = (typeof SKILL_GROUP_KEYS)[number];
+
+// ──────────────────────────────────────────────────────────────────────────
+// Loaders
+// ──────────────────────────────────────────────────────────────────────────
 
 const ROOT = path.join(process.cwd(), 'content');
 const FALLBACK = path.join(process.cwd(), 'content.example');
@@ -131,6 +196,37 @@ export async function loadProjects(locale: string): Promise<ProjectEntry[]> {
 export async function loadEducation(locale: string): Promise<EducationEntry[]> {
   const envVar = `AMPLYD_EDUCATION_${locale.toUpperCase()}`;
   return (await readJson<EducationEntry[]>(`education.${locale}.json`, envVar)) ?? [];
+}
+
+export async function loadSkills(locale: string): Promise<SkillEntry[]> {
+  const envVar = `AMPLYD_SKILLS_${locale.toUpperCase()}`;
+  return (await readJson<SkillEntry[]>(`skills.${locale}.json`, envVar)) ?? [];
+}
+
+export async function loadPreferences(locale: string): Promise<Preferences | null> {
+  const envVar = `AMPLYD_PREFERENCES_${locale.toUpperCase()}`;
+  return await readJson<Preferences>(`preferences.${locale}.json`, envVar);
+}
+
+/**
+ * Returns the entire CV corpus for the LLM agent. Long-form fields are
+ * included; the page itself only renders compact fields by default.
+ */
+export async function loadAllForAgent(locale: string): Promise<{
+  timeline: TimelineEntry[];
+  projects: ProjectEntry[];
+  education: EducationEntry[];
+  skills: SkillEntry[];
+  preferences: Preferences | null;
+}> {
+  const [timeline, projects, education, skills, preferences] = await Promise.all([
+    loadTimeline(locale),
+    loadProjects(locale),
+    loadEducation(locale),
+    loadSkills(locale),
+    loadPreferences(locale),
+  ]);
+  return { timeline, projects, education, skills, preferences };
 }
 
 export async function readArticle(

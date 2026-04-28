@@ -1,0 +1,19 @@
+[
+  { "group": "agents", "name": "Compétence 1" },
+  { "group": "agents", "name": "Compétence 2" },
+
+  { "group": "rag", "name": "Compétence 1" },
+  { "group": "rag", "name": "Compétence 2" },
+
+  { "group": "routing", "name": "Compétence 1" },
+  { "group": "routing", "name": "Compétence 2" },
+
+  { "group": "governance", "name": "Compétence 1" },
+  { "group": "governance", "name": "Compétence 2" },
+
+  { "group": "platform", "name": "Stack 1" },
+  { "group": "platform", "name": "Stack 2" },
+
+  { "group": "languages", "name": "Python" },
+  { "group": "languages", "name": "TypeScript" }
+]

@@ -1,0 +1,19 @@
+[
+  { "group": "agents", "name": "Skill 1" },
+  { "group": "agents", "name": "Skill 2" },
+
+  { "group": "rag", "name": "Skill 1" },
+  { "group": "rag", "name": "Skill 2" },
+
+  { "group": "routing", "name": "Skill 1" },
+  { "group": "routing", "name": "Skill 2" },
+
+  { "group": "governance", "name": "Skill 1" },
+  { "group": "governance", "name": "Skill 2" },
+
+  { "group": "platform", "name": "Stack 1" },
+  { "group": "platform", "name": "Stack 2" },
+
+  { "group": "languages", "name": "Python" },
+  { "group": "languages", "name": "TypeScript" }
+]

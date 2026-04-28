@@ -4,7 +4,16 @@
     "title": "Amplyd",
     "blurb": "An AI-native CV with a LangGraph agent, MCP server and ISO 42001 guardrails.",
     "href": "https://github.com/plyd/amplyd",
-    "stack": ["Next.js", "LangGraph", "GCP"]
+    "stack": ["Next.js", "LangGraph", "GCP"],
+
+    "context": "Optional: who it's for, what problem it solves.",
+    "narrative": "Optional Markdown. The long story — why you built it, the architectural calls, what surprised you. Page does not render this by default; the agent reads it and may surface it.",
+    "anecdotes": [
+      "A short, specific story the agent can quote when relevant."
+    ],
+    "outcomes": ["Concrete result, ideally quantified"],
+    "lessons": ["What you learned — gold material for conversations"],
+    "keywords": ["agents", "rag", "iso-42001"]
   },
   {
     "key": "project-2",

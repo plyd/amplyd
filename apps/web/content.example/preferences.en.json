@@ -1,0 +1,9 @@
+{
+  "remote": "hybrid",
+  "locations": ["Your city", "Other city"],
+  "availability": "Available now",
+  "contract_types": ["freelance", "cdi"],
+  "sectors_of_interest": ["industry", "healthcare"],
+  "values": "Replace with what matters to you in a mission. The agent reads this verbatim.",
+  "red_flags": ["No legacy Java", "Avoid greenfield with no users"]
+}

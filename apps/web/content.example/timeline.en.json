@@ -3,7 +3,20 @@
     "period": "20XX — now",
     "title": "Your current role",
     "company": "Company",
-    "blurb": "One-line description of what you do and the impact."
+    "blurb": "One-line description of what you do and the impact.",
+
+    "context": "Optional: who is the client, team size, what's at stake. 2-3 sentences max.",
+    "narrative": "Optional Markdown. Tell the long story of this role like you would over coffee — what you walked into, the turning point, what you shipped. The page will not render this by default; the LLM agent reads it and decides when it's relevant to surface.",
+    "anecdotes": [
+      "A short, citable story (1-3 sentences) the agent can quote when it fits the conversation.",
+      "Another anecdote — the more specific, the more memorable."
+    ],
+    "achievements": [
+      "Concrete, ideally quantified (e.g. +40% throughput, audit passed first try)",
+      "Another bullet"
+    ],
+    "stack": ["Tool A", "Tool B", "Tool C"],
+    "keywords": ["agents", "production", "iso-42001"]
   },
   {
     "period": "20XX — 20XX",

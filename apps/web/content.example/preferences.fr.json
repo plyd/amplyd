@@ -1,0 +1,9 @@
+{
+  "remote": "hybrid",
+  "locations": ["Ta ville", "Autre ville"],
+  "availability": "Disponible immédiatement",
+  "contract_types": ["freelance", "cdi"],
+  "sectors_of_interest": ["industrie", "santé"],
+  "values": "Décris ce qui te fait vibrer dans une mission. L'agent lit ce texte tel quel.",
+  "red_flags": ["Pas de Java legacy", "Pas de greenfield sans utilisateurs"]
+}

@@ -1,19 +1,13 @@
 import { getTranslations } from 'next-intl/server';
 import { ArrowUpRight } from 'lucide-react';
 import { Container } from '@/components/ui/Container';
-import { loadEducation, loadProjects, loadTimeline } from '@/lib/content';
-
-const SKILL_GROUPS: { key: string; items: string[] }[] = [
-  { key: 'agents', items: ['LangGraph', 'MCP', 'Vercel AI SDK', 'Tool design', 'Eval harnesses'] },
-  { key: 'rag', items: ['BM25', 'Embeddings', 'Hybrid search', 'Re-ranking', 'Chunking'] },
-  { key: 'routing', items: ['litellm', 'Claude', 'GPT', 'Gemini', 'Cost/latency routing'] },
-  {
-    key: 'governance',
-    items: ['ISO 42001', 'Guardrails', 'PII redaction', 'LangFuse', 'Audit trails'],
-  },
-  { key: 'platform', items: ['Next.js 15', 'FastAPI', 'GCP Cloud Run', 'Vercel', 'Terraform'] },
-  { key: 'languages', items: ['Python', 'TypeScript', 'SQL', 'Bash'] },
-];
+import {
+  SKILL_GROUP_KEYS,
+  loadEducation,
+  loadProjects,
+  loadSkills,
+  loadTimeline,
+} from '@/lib/content';
 
 function SectionTitle({ children }: { children: React.ReactNode }) {
   return (
@@ -27,11 +21,17 @@ export async function Resume({ locale }: { locale: string }) {
   const t = await getTranslations({ locale, namespace: 'resume' });
   const tSkills = await getTranslations({ locale, namespace: 'skills' });
 
-  const [roles, projects, education] = await Promise.all([
+  const [roles, projects, education, skills] = await Promise.all([
     loadTimeline(locale),
     loadProjects(locale),
     loadEducation(locale),
+    loadSkills(locale),
   ]);
+
+  const skillGroups = SKILL_GROUP_KEYS.map((key) => ({
+    key,
+    items: skills.filter((s) => s.group === key).map((s) => s.name),
+  })).filter((g) => g.items.length > 0);
 
   return (
     <section id="cv" className="scroll-mt-20 py-14 md:py-16">
@@ -141,21 +141,23 @@ export async function Resume({ locale }: { locale: string }) {
             )}
 
             {/* Skills */}
-            <div className="flex flex-col gap-4">
-              <SectionTitle>{t('sections.skills')}</SectionTitle>
-              <ul className="flex flex-col gap-3">
-                {SKILL_GROUPS.map((g) => (
-                  <li key={g.key} className="flex flex-col gap-1">
-                    <p className="font-mono text-[10px] uppercase tracking-widest text-[var(--color-text-muted)]">
-                      {tSkills(`groups.${g.key}`)}
-                    </p>
-                    <p className="text-xs leading-relaxed text-[var(--color-text-secondary)]">
-                      {g.items.join(' · ')}
-                    </p>
-                  </li>
-                ))}
-              </ul>
-            </div>
+            {skillGroups.length > 0 && (
+              <div className="flex flex-col gap-4">
+                <SectionTitle>{t('sections.skills')}</SectionTitle>
+                <ul className="flex flex-col gap-3">
+                  {skillGroups.map((g) => (
+                    <li key={g.key} className="flex flex-col gap-1">
+                      <p className="font-mono text-[10px] uppercase tracking-widest text-[var(--color-text-muted)]">
+                        {tSkills(`groups.${g.key}`)}
+                      </p>
+                      <p className="text-xs leading-relaxed text-[var(--color-text-secondary)]">
+                        {g.items.join(' · ')}
+                      </p>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
 
             {/* Languages */}
             <div className="flex flex-col gap-4">
