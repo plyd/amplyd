@@ -1,0 +1,23 @@
+{
+  "remote": "full",
+  "locations": ["Rennes", "Paris"],
+  "availability": "Open to new missions / roles starting Q2 2026.",
+  "contract_types": ["freelance", "cdi"],
+
+  "sectors_of_interest": [
+    "AI agents in production",
+    "AI governance and ISO 42001 alignment",
+    "Industrial / B2B SaaS",
+    "Healthcare and regulated verticals",
+    "Open knowledge and civic tech"
+  ],
+
+  "values": "I care about: shipping AI systems that are auditable end-to-end (not 'trust me'), production over demos, picking the boring tool when it does the job, and writing the code an auditor or a junior teammate can actually read. I work best on a small senior team where the ratio of reviewers to producers stays sane.\n\nIndicative rates: ~€800/day TJM freelance; ~€120–130k for the right CDI. Always negotiable in context.",
+
+  "red_flags": [
+    "Java legacy stacks with no path to modernization",
+    "AI demos with no observability or evaluation plan",
+    "Greenfield rewrites whose only goal is the rewrite itself",
+    "Cultures where 'governance' means slideware, not enforcement"
+  ]
+}

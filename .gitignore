@@ -1,9 +1,11 @@
 # --- Vincent's private data — NEVER commit ---
-# The live content lived next to apps/web/content.example/. Real CV data
-# (and the brief, Notion exports, etc.) stay local-only.
+# The CV JSON content under apps/web/content/{timeline,projects,education,
+# skills,preferences}.{en,fr}.json is intentionally public (long-form
+# narrative + anecdotes, all designed to be read by the agent and visitors).
+# Profile MDX and unfinished article drafts stay local until they're polished.
 _private/
-apps/web/content/
-!apps/web/content/.gitkeep
+apps/web/content/profile.*.mdx
+apps/web/content/articles/
 
 # --- Node / pnpm / Turbo ---
 node_modules/

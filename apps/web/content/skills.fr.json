@@ -1,0 +1,130 @@
+[
+  {
+    "group": "agents",
+    "name": "ReAct (codé à la main)",
+    "level": "expert",
+    "years_xp": 2,
+    "evidence_project_keys": ["speedflow", "amplyd"],
+    "story": "J'ai construit la boucle SpeedFlow en ReAct Python pur après avoir tranché que LangChain/LangGraph ne payaient pas leur abstraction vu notre routing custom. État, dispatch d'outils et interruptions explicites — les auditeurs lisent la boucle de haut en bas."
+  },
+  {
+    "group": "agents",
+    "name": "LangGraph",
+    "level": "working",
+    "years_xp": 1,
+    "evidence_project_keys": ["amplyd"],
+    "story": "Utilisé sur Amplyd où l'abstraction graphe gagne sa place. Chez SpeedFlow on a délibérément choisi de ne pas migrer dessus — compétence 'savoir quand l'utiliser, savoir quand non'."
+  },
+  {
+    "group": "agents",
+    "name": "MCP",
+    "level": "working",
+    "years_xp": 1,
+    "evidence_project_keys": ["speedflow", "amplyd"],
+    "story": "J'ai conçu et prototypé un serveur MCP chez BKSystèmes exposant CRM, moteur de pricing et recherche doc. Le passage en prod est venu après ma mission. J'utilise aussi MCP sur Amplyd pour câbler Notion dans le build."
+  },
+  {
+    "group": "agents",
+    "name": "Vercel AI SDK",
+    "level": "working",
+    "years_xp": 1,
+    "evidence_project_keys": ["amplyd"]
+  },
+  {
+    "group": "agents",
+    "name": "Conception d'outils",
+    "level": "expert",
+    "years_xp": 2,
+    "evidence_project_keys": ["speedflow", "amplyd"],
+    "story": "Le plus dur en agentique n'est pas la boucle, c'est d'écrire des tools que le modèle comprend vraiment. Types stricts, scopes étroits, appels idempotents."
+  },
+  {
+    "group": "agents",
+    "name": "Harnais d'évaluation",
+    "level": "working",
+    "years_xp": 2,
+    "evidence_project_keys": ["speedflow"]
+  },
+
+  { "group": "rag", "name": "BM25", "level": "working" },
+  { "group": "rag", "name": "Embeddings", "level": "working" },
+  { "group": "rag", "name": "Recherche hybride", "level": "working" },
+  { "group": "rag", "name": "Re-ranking", "level": "working" },
+  { "group": "rag", "name": "Chunking", "level": "working" },
+
+  { "group": "routing", "name": "litellm", "level": "working" },
+  { "group": "routing", "name": "Claude", "level": "expert" },
+  { "group": "routing", "name": "GPT", "level": "working" },
+  { "group": "routing", "name": "Gemini", "level": "working" },
+  {
+    "group": "routing",
+    "name": "Routage coût/latence",
+    "level": "working",
+    "evidence_project_keys": ["speedflow"],
+    "story": "Chez SpeedFlow on routait entre Claude/GPT/Gemini par budget coût et latence par tâche — ~600 €/mois économisés sur le spend modèle, sans régression qualité mesurable."
+  },
+
+  {
+    "group": "governance",
+    "name": "ISO 42001",
+    "level": "working",
+    "years_xp": 1,
+    "evidence_project_keys": ["speedflow", "amplyd"],
+    "story": "Formé AFNOR (attestation, 2025). J'ai piloté l'alignement sur SpeedFlow — registre de prompts versionnés, API de trace de décision, runbooks audit-ready. Audit passé du premier coup."
+  },
+  {
+    "group": "governance",
+    "name": "Phoenix (Arize)",
+    "level": "working",
+    "years_xp": 1,
+    "evidence_project_keys": ["speedflow"],
+    "story": "Choisi face à LangFuse chez SpeedFlow parce que natif OpenTelemetry et sans lock-in éditeur."
+  },
+  {
+    "group": "governance",
+    "name": "LangFuse",
+    "level": "working",
+    "evidence_project_keys": ["amplyd"]
+  },
+  { "group": "governance", "name": "Garde-fous", "level": "working" },
+  { "group": "governance", "name": "Anonymisation PII", "level": "working" },
+  {
+    "group": "governance",
+    "name": "Pistes d'audit",
+    "level": "expert",
+    "evidence_project_keys": ["speedflow"],
+    "story": "J'ai construit la couche de trace de décision qui a permis à l'auditeur ISO 42001 de reconstituer n'importe quelle exécution passée en quelques secondes."
+  },
+
+  { "group": "platform", "name": "Next.js 15", "level": "working" },
+  { "group": "platform", "name": "FastAPI", "level": "expert" },
+  { "group": "platform", "name": "GCP Cloud Run", "level": "expert" },
+  { "group": "platform", "name": "Azure AKS", "level": "working", "evidence_project_keys": ["loreal-observability"] },
+  { "group": "platform", "name": "Grafana / Prometheus / ELK", "level": "expert", "evidence_project_keys": ["loreal-observability"] },
+  { "group": "platform", "name": "Vercel", "level": "working" },
+  { "group": "platform", "name": "Terraform", "level": "working" },
+
+  {
+    "group": "languages",
+    "name": "Python",
+    "level": "expert",
+    "years_xp": 12,
+    "story": "Auto-évalué 9/10. Daily driver depuis le début des années 2010. La majorité du travail prod agentique et data."
+  },
+  {
+    "group": "languages",
+    "name": "Go",
+    "level": "working",
+    "years_xp": 4,
+    "story": "Auto-évalué 7,5/10. J'y vais quand la latence ou l'empreinte mémoire compte."
+  },
+  {
+    "group": "languages",
+    "name": "TypeScript",
+    "level": "working",
+    "years_xp": 6,
+    "story": "Auto-évalué 7/10. Solide sur le back Node ; le front Next.js est plus 6/10."
+  },
+  { "group": "languages", "name": "SQL", "level": "expert" },
+  { "group": "languages", "name": "Bash", "level": "expert" }
+]

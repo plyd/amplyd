@@ -1,0 +1,160 @@
+[
+  {
+    "period": "Oct 2025 — Feb 2026",
+    "title": "AI agentic system lead",
+    "company": "BKSystèmes (SpeedFlow module)",
+    "blurb": "Production LLM agent for warehouse management. Multimodal RAG, ReAct from scratch, full LLM observability.",
+
+    "context": "BKSystèmes is the editor of SpeedWMS, a warehouse management system used in industrial operations. The agent shipped as the SpeedFlow module — a client-facing role with full ownership of roadmap, architecture, secure rollout and LLMOps.",
+
+    "narrative": "I delivered a production LLM assistant embedded inside an existing warehouse management product. The hard part wasn't the agent itself — it was making it observable, evaluable, and trustworthy enough to put in front of warehouse operators.\n\nI built a multimodal RAG over 15,000 documents and 8,000 images, multilingual. The ReAct loop was hand-rolled (no LangChain) because I wanted to understand every decision the agent made — in retrospect I'd reach for LangChain or LangGraph for the next one, but the from-scratch path forced clarity on what each layer actually does.\n\nObservability was non-negotiable: OpenTelemetry traces feeding Phoenix (Arize), every retrieval step, every LLM call, every tool use, with token costs in euros. I built evaluation datasets in Phoenix to compare LLM outputs to expected answers and watch quality drift over time. Prompt versioning lived in Phoenix's prompt management system.\n\nThe MCP layer was designed and prototyped — a Model Context Protocol server connecting the agent to a structured DB. The genuinely hard problem was prompt engineering the tool selection: telling a ReAct agent *when* to call MCP vs. when to answer from RAG.",
+
+    "anecdotes": [
+      "Hardest engineering problem of the mission: the prompt that decides whether the ReAct agent should hit the MCP tool or answer from RAG. Got it wrong, the agent called the DB on every turn and burned tokens. Got it right, it stayed cheap and accurate."
+    ],
+
+    "achievements": [
+      "Multimodal RAG over 15,000 docs + 8,000 images, multilingual",
+      "ReAct framework built from scratch — every step traced via OpenTelemetry → Phoenix",
+      "Token costs tracked in € per agent run; evaluation datasets monitoring quality drift",
+      "MCP server designed and prototyped (not in prod) connecting the agent to a structured DB"
+    ],
+
+    "stack": ["Python", "Ollama", "OpenTelemetry", "Phoenix (Arize)", "RAG", "ReAct", "MCP", "Qwen", "GPT-5", "Pixtral", "Mistral Large", "Claude Opus 4.5", "pgvector"],
+    "keywords": ["agents", "react", "rag", "multimodal", "mcp", "observability", "phoenix", "opentelemetry", "ollama", "production"]
+  },
+
+  {
+    "period": "2024 — now",
+    "title": "Founder",
+    "company": "Vinland SASU (freelance)",
+    "blurb": "Senior AI architecture missions for European mid-caps. AFNOR ISO 42001 trained.",
+
+    "context": "Vinland is the freelance vehicle through which I deliver AI architecture missions. BKSystèmes (SpeedFlow) is the most recent client.",
+    "achievements": [
+      "AFNOR ISO/IEC 42001 AI Management Systems training (2 days in person, 2025) — not a certification, training attestation",
+      "Production LLM delivery at BKSystèmes",
+      "MIT online program: AI — Implications for Business Strategy (2025)"
+    ],
+    "keywords": ["freelance", "ai-architecture", "iso-42001", "governance"]
+  },
+
+  {
+    "period": "2022 — 2025",
+    "title": "Tech Lead Data & Observability",
+    "company": "L'Oréal Europe (Malt freelance)",
+    "blurb": "Observability for e-commerce + logistics across 150 EMEA sites. ~10 engineers reporting to Head of Data.",
+
+    "context": "Built and operated the observability platform for L'Oréal Europe's e-commerce and logistics: 150 country × brand sites on Salesforce Commerce Cloud across EMEA. Team of ~10 engineers (fullstack + data, all external contractors). Reported to Head of Data. I was on a Malt freelance contract.",
+
+    "narrative": "Three years on the same platform, two long-running products: a metrics/dashboards stack on Grafana + Prometheus + Azure-managed PostgreSQL, and an e-commerce observability product written in Go on top of Elasticsearch with React frontends — non-standard but it worked.\n\nThe most concrete technical achievement was a fraud detection pipeline cross-referencing 35+ heterogeneous data sources to detect orders that shipped before payment confirmation. SFCC, payment APIs (Worldline / Adyen / Cybersource / ProcessOut), SAP via PyRFC (binary RFC protocol — rare and concrete SAP depth), Kafka/EventHub events, CRM, product catalogs, TMS/WMS feeds, Fluent API, Apigee.\n\nAnything not in Git wasn't real: Grafana dashboards provisioned as JSON via CI/CD, Logstash pipelines (input/filter/output) in Git with custom Docker images, Cypress e2e tests with per-PR ephemeral environments on AKS via Helm/Helmfile.\n\nI was the first in the team to adopt GitHub Copilot and evangelized it; later moved to Claude Opus before others did. Hiring + tech interviews + onboarding through pair programming + Git best-practices presentations to the squad.",
+
+    "anecdotes": [
+      "Presented our solution to ~40 people alongside the PO. The 'Click to Possession' dashboard — real-time tracking of the full e-commerce journey end-to-end — became the canonical view ops and business stakeholders looked at first thing in the morning.",
+      "Knowing PyRFC isn't impressive — it's just SAP's binary protocol for calling ABAP/BAPI modules remotely. But because every SAP shop still runs on it under the OData-on-BTP veneer, being able to read those traces in production saved us a lot of time."
+    ],
+
+    "achievements": [
+      "Click-to-Possession dashboards: real-time end-to-end e-commerce journey, used by ops + business",
+      "Fraud detection pipeline cross-referencing 35+ heterogeneous data sources (SFCC, payments, SAP, Kafka, CRM, TMS/WMS)",
+      "Black Friday war room: contributor — prepared the observability product for EMEA peak traffic (was not the lead)",
+      "Per-PR ephemeral Cypress envs on AKS via Helm/Helmfile, monorepo, Sentry, GitLab CI/CD",
+      "Cross-cloud reporting: Python Cloud Functions syncing to GCP BigTable + Looker Studio"
+    ],
+
+    "stack": ["Grafana", "Prometheus", "ELK (Elasticsearch + Logstash + Kibana)", "Azure AKS", "KQL", "Go", "Python", "PostgreSQL", "React", "Sentry", "Helm", "Helmfile", "Cypress", "GitLab CI/CD", "Kafka/EventHub", "GCP BigTable", "Looker Studio", "PyRFC (SAP)", "Apigee", "Fluent"],
+    "keywords": ["observability", "grafana", "elk", "kubernetes", "azure-aks", "fraud-detection", "sap", "kafka", "ci-cd", "e-commerce"]
+  },
+
+  {
+    "period": "2021 — 2022",
+    "title": "Founder",
+    "company": "Pipop",
+    "blurb": "B2C carpooling platform with custom detour-routing. BPI French Tech grant (€30k). 250 users. Shut down.",
+
+    "context": "Solo founder turning a carpooling idea into a working marketplace. Awarded €30k by BPI (Banque Publique d'Investissement) French Tech. Recruited one developer. Conducted 100+ user interviews. Reached 250 users. Did not sell — shut down due to inability to secure further funding.",
+
+    "narrative": "Carpooling marketplace with a twist: detour-aware routing rather than point-to-point. Drivers got matched with passengers whose detour cost them the least, not whose origin was closest.\n\nMongoPay marketplace mode handled the money flow between passenger and driver. Stack was AWS Lambda + Terraform + Python + MongoDB + PostgreSQL + Next.js. Honest outcome: the platform worked, the unit economics never did.",
+
+    "lessons": [
+      "Funding closed faster than user growth — should have raised a smaller pre-seed earlier rather than counting on grant money.",
+      "Mobility is my third sector exposure (Amadeus airline + Kelbillet trains + Pipop carpooling) — useful context when pitching transport companies."
+    ],
+
+    "stack": ["AWS Lambda", "Terraform", "Python", "MongoDB", "PostgreSQL", "Next.js", "MangoPay"],
+    "keywords": ["founder", "mobility", "marketplace", "aws-lambda", "terraform", "next-js", "bpi"]
+  },
+
+  {
+    "period": "2021",
+    "title": "Transition CTO (freelance, ~3-4 months)",
+    "company": "The Programmatic Company",
+    "blurb": "Reorganized a 15-person tech team for an online advertising data platform.",
+
+    "context": "Short freelance mission. Recruited new tech leads, kicked off architecture redesign for a programmatic advertising data platform. Mission ended after 3-4 months.",
+    "keywords": ["interim-cto", "team-reorg", "adtech"]
+  },
+
+  {
+    "period": "2019 — 2020",
+    "title": "Application Architect",
+    "company": "Anevia",
+    "blurb": "High-availability platform monitoring TV streaming infra in hotels. Django + K8s + Grafana/Loki.",
+
+    "narrative": "Redesigned the architecture of a Django application monitoring satellite/TNT/fiber TV stream existence across hotel boxes. Grafana + Loki for application logs (Python/Django). Kubernetes + Docker + PostgreSQL + Redis. GitLab CI/CD. Used Algolia for an internal search product on the side.",
+
+    "stack": ["Django", "Python", "Kubernetes", "Docker", "PostgreSQL", "Redis", "Grafana", "Loki", "Algolia", "GitLab CI/CD"],
+    "keywords": ["django", "kubernetes", "high-availability", "loki", "tv-streaming"]
+  },
+
+  {
+    "period": "2015 — 2020",
+    "title": "CEO & Co-founder — sold 2020",
+    "company": "Lisa.blue (acquired by Cadwork)",
+    "blurb": "B2B SaaS for structural engineers. Geolocated calculation hypotheses + WebGL 3D modeling. Sold in 2020.",
+
+    "context": "Co-founded with Stéphane (structural engineering domain expertise). Two products: (1) geolocation — drop a building on a map, get instant calculation hypotheses (wind, snow, seismic, fire) per Eurocodes/NF standards with orography, altitudes, relief; multi-country FR + EN; (2) WebGL 3D modeling with structural calculations using NumPy + the pyframe3dd C library, parallel optimization for piece selection, built for one specific client.",
+
+    "narrative": "I led every client demo and every sale myself. Public presentations at the Fédération Française du Bâtiment (FFB) — ~300 people in an amphitheater listening to a tech founder explain how Eurocodes show up in a SaaS UI. Managed contracts (with a lawyer), Stripe subscriptions, partner relationships.\n\nStéphane brought the structural engineering depth; I brought the product, infra, and sales. We sold to Cadwork in 2020.",
+
+    "anecdotes": [
+      "Pitched our Eurocode-aware SaaS to ~300 structural engineers at the FFB amphitheater. 90% of the room had never seen a Stripe subscription page in their life. Sold contracts that week."
+    ],
+
+    "stack": ["Python", "NumPy", "C (pyframe3dd)", "MongoDB", "AngularJS", "WebGL", "Stripe"],
+    "keywords": ["founder", "exit", "saas", "structural-engineering", "eurocodes", "webgl", "stripe"]
+  },
+
+  {
+    "period": "2011 — 2015",
+    "title": "CEO & Consultant — sold 2015",
+    "company": "RDV Ophtalmo / Groupe Point Vision",
+    "blurb": "Scheduling platform with thousands of daily appointments. Sold to Point Vision in 2015.",
+
+    "context": "Two parallel hats. RDV Ophtalmo: scheduling SaaS handling thousands of daily ophthalmology appointments — led 6 developers, coordinated 2 external call-center teams, handled healthcare data hosting compliance. Point Vision consulting: advised the group from its founding — IT setup for 15 medical centers (250 PCs, 40 servers), software selection, board-level reporting with data-driven insights.",
+
+    "narrative": "The story I'm proudest of from this period isn't about the platform itself — it's the **national ophthalmology wait-time map**. I surveyed 2,643 practitioners across France. Result: 77-day average wait, up to 1 year in some départements. The study landed in the national press (PourquoiDocteur, Le Guide de la Vue, etc.) and directly informed Point Vision's expansion strategy. The group now runs **54 centers serving 1.4M patients/year**.",
+
+    "anecdotes": [
+      "Surveyed 2,643 ophthalmologists by hand to produce the first national map of ophthalmology wait times in France. Average wait: 77 days. Worst département: a year. The map was widely covered in the national press and shaped where Point Vision opened the next centers."
+    ],
+
+    "achievements": [
+      "Sold RDV Ophtalmo to Point Vision in 2015",
+      "National ophthalmology wait-time map (2,643 practitioners) — covered in national press",
+      "Point Vision now operates 54 centers serving 1.4M patients/year"
+    ],
+
+    "keywords": ["founder", "exit", "healthcare", "scheduling", "data-driven", "press"]
+  },
+
+  {
+    "period": "2009 — 2010",
+    "title": "Engineer — early career",
+    "company": "Amadeus, Kelbillet",
+    "blurb": "Airline ticket search engines (Amadeus until 2009), then train ticket startup (Kelbillet 2009-2010).",
+
+    "narrative": "Worked on airline ticket search engines at Amadeus (graduated INSA Rennes in 2006, joined immediately). Left in 2009 for Kelbillet, a train ticket startup. Combined with Pipop (carpooling) later, this gives me three exposures to the mobility/transport sector.",
+    "keywords": ["amadeus", "kelbillet", "airline-search", "train-tickets", "mobility"]
+  }
+]

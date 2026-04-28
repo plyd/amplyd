@@ -1,0 +1,168 @@
+[
+  {
+    "key": "amplyd",
+    "title": "Amplyd",
+    "blurb": "This site. AI-native CV with a LangGraph agent, MCP server and ISO 42001 guardrails.",
+    "href": "https://github.com/plyd/amplyd",
+    "stack": ["Next.js 15", "LangGraph", "MCP", "GCP Cloud Run", "Terraform", "LangFuse"],
+
+    "context": "Personal R&D project, end of 2025: prove that an LLM-tailored CV can replace the static PDF. Public, open-source, monorepo with a Next.js front-end and a Python LangGraph agent.",
+
+    "narrative": "The thesis: a CV is the worst possible artifact — frozen in time, written for everyone and therefore for no one. Replace it with an agent that has the full long-form story in context and chooses what to surface for each visitor.\n\nThe build splits cleanly: Next.js renders a compact view by default (no chat = no LLM cost), the LangGraph agent (Python) is exposed via Cloud Run + IAP, and a `CvView` data part lets the agent re-rank and expand entries on the fly. ISO 42001 guardrails baked in from day one: every prompt versioned in Postgres, every tool call traced in LangFuse, every model decision auditable in under a minute.\n\nThe interesting constraint was making it fork-friendly. The CV content lives in `content/` (gitignored, real data) with a fallback to `content.example/` (placeholder data) so anyone can clone the repo and replace the JSON files with their own story.",
+
+    "anecdotes": [
+      "I wrote the long-form narrative in Notion first, then piped it into JSON via the Notion MCP server. The agent eats its own dogfood: the `get_cv` tool was tested against the real CV before the page was even styled."
+    ],
+
+    "outcomes": [
+      "Production-grade observability stack (LangFuse + OpenTelemetry) on a personal project — same standard as enterprise work",
+      "Fork-friendly architecture: clone, replace JSON, deploy",
+      "Public reference implementation for ISO 42001-aligned agents"
+    ],
+
+    "lessons": [
+      "Tool calling beats system-prompt stuffing for variable-context CV data: cheaper, traceable, easier to evaluate",
+      "Writing the CV as long-form narrative + structured fields (vs. one or the other) gave the agent real material to work with"
+    ],
+
+    "keywords": ["agents", "langgraph", "mcp", "iso-42001", "rag", "next-js", "cloud-run", "open-source"]
+  },
+  {
+    "key": "loreal-observability",
+    "title": "L'Oréal Europe — Data observability",
+    "blurb": "Observability stack for the European data platform: Grafana, Prometheus, ELK on Azure AKS, plus PyRFC fraud detection across 35+ sources.",
+    "stack": ["Grafana", "Prometheus", "ELK", "Azure AKS", "Python", "PyRFC", "SAP", "Terraform"],
+
+    "context": "Malt freelance mission for L'Oréal's European data platform. Internal team running production data pipelines for ~15 country subsidiaries; my mandate covered observability and a fraud-detection pipeline cross-referencing 35+ heterogeneous sources.",
+
+    "narrative": "When I joined, the platform had grown faster than its monitoring. Pipelines failed silently; debugging meant SSH-ing into AKS pods and reading raw logs. I rebuilt the observability layer on Grafana + Prometheus + ELK (the team's existing Azure stack — no greenfield rewrite), with custom dashboards per pipeline and alert routing into the on-call rotation.\n\nThe second leg was a fraud-detection pipeline: 35+ sources (SAP via PyRFC, plus various country-level APIs and CSV drops), a Python deduplication and scoring layer, and a feedback loop with the audit team. The interesting work was less the ML and more the data plumbing — getting clean joins across systems that disagreed on customer IDs.\n\nBlack Friday war room contributor: I was on the rotation that kept the platform stable during the November peak, mostly through pre-staged dashboards and rehearsed runbooks rather than heroics in the moment."
+    ,
+    "anecdotes": [
+      "The first Grafana dashboard I shipped surfaced a silent pipeline failure that had been dropping ~2% of one country's transactions for three weeks. The team thought volumes were just down. They were not."
+    ],
+
+    "outcomes": [
+      "Cut pipeline-failure detection time from days to minutes via routed alerts",
+      "Fraud-detection pipeline cross-referencing 35+ data sources in production",
+      "Black Friday peak handled with no platform incidents during my shifts"
+    ],
+
+    "lessons": [
+      "Observability is mostly a labelling problem, not a tooling problem — the stack you have usually works if you instrument consistently",
+      "PyRFC + SAP is a reminder that the cutting edge of data plumbing is still 25-year-old protocols"
+    ],
+
+    "keywords": ["observability", "grafana", "prometheus", "elk", "azure-aks", "fraud-detection", "pyrfc", "sap", "python", "freelance"]
+  },
+  {
+    "key": "speedflow",
+    "title": "BKSystèmes — SpeedFlow agent",
+    "blurb": "Production AI agent: ReAct loop hand-rolled in Python, Phoenix observability, MCP designed and prototyped, ISO 42001 guardrails.",
+    "stack": ["Python", "Phoenix", "ReAct", "OpenTelemetry", "FastAPI", "Postgres", "MCP (prototype)"],
+
+    "context": "BKSystèmes, French industrial ESN (~200 staff). SpeedFlow is their lead-qualification module. I joined a stalled POC, took it to production in 5 months, and led the ISO 42001 alignment work.",
+
+    "narrative": "The POC was LangChain v0.0.x, written by a contractor who'd left, maintained by no one. We made the call early to *not* migrate to LangGraph: the abstraction wasn't paying for itself given how custom our routing logic was. I rebuilt the agent loop as a hand-rolled ReAct in plain Python, with explicit state, explicit tool dispatch, explicit interrupt points. Easier to audit, easier to debug, no framework lock-in.\n\nObservability went on Phoenix (Arize) over OpenTelemetry — Phoenix gives you LLM-aware traces (prompts, tool calls, costs) without forcing you onto a vendor's stack. The ISO 42001 audit was the real test: I built a versioned prompt registry in Postgres with rollback, a decision-trace API that could reconstruct any past run, and the runbooks to go with them. Audit passed first time.\n\nMCP was the next piece — I designed a server exposing the company's internal tools (CRM, pricing engine, doc search) and shipped a working prototype. Production rollout came after my mission ended; what I delivered was the architecture, the prototype, and the migration plan."
+    ,
+    "anecdotes": [
+      "The ISO 42001 auditor asked how long it would take to produce the full trace of a specific AI decision from six weeks ago. I ran one Phoenix query, had the answer in 12 seconds. He smiled.",
+      "First Cloud Run prod deployment: I'd forgotten to set `--max-instances`. 2pm traffic spike, 200 instances, GCP bill flying. I learned to put infra guardrails in before app guardrails."
+    ],
+
+    "outcomes": [
+      "ISO 42001 audit passed on the first attempt",
+      "60% reduction in lead-qualification time vs. the manual baseline",
+      "Multi-LLM routing (Claude/GPT/Gemini) by cost and latency — ~€600/month savings on model spend alone"
+    ],
+
+    "lessons": [
+      "Hand-rolling a ReAct loop in plain Python beats a framework when your routing is custom and your auditors want to read the code",
+      "Phoenix + OpenTelemetry is the cheapest path to ISO-grade traceability that doesn't lock you in"
+    ],
+
+    "keywords": ["agents", "react", "phoenix", "mcp", "iso-42001", "production", "multi-llm", "python", "observability"]
+  },
+  {
+    "key": "lisa-blue",
+    "title": "Lisa.blue — exited 2020",
+    "blurb": "B2B SaaS for the construction industry. Founded, scaled, sold to Cadwork in 2020.",
+    "stack": ["Web platform", "Founder", "B2B SaaS", "Construction tech"],
+
+    "context": "Founded after RDV Ophtalmo. B2B SaaS targeting timber-frame and CAD/CAM workflows in the construction industry. Sold to Cadwork (Swiss CAD/CAM leader) in 2020.",
+
+    "narrative": "The thesis: timber-frame builders were drowning in spreadsheets between CAD and the shop floor. Build the connective layer. We did — three years of customer development, six-figure ARR, a small team, and a clean acquisition by Cadwork who wanted the European customer base and the integration know-how.\n\nThe non-obvious part of running a B2B SaaS in construction: your customer doesn't read your emails, doesn't watch your Loom, doesn't open your dashboard. You sell at trade shows, you ship features after lunch with a client on-site, and your retention depends on whether the foreman likes you personally."
+    ,
+    "anecdotes": [
+      "Pitched Lisa.blue at the FFB (French construction federation) congress in front of ~300 people. I had 8 minutes. I learned more about pitching that day than in three years of investor decks.",
+      "Closed a deal at a trade show by debugging a customer's existing Excel macro at their booth. They signed because I fixed their problem before pitching mine."
+    ],
+
+    "outcomes": [
+      "Acquisition by Cadwork (Swiss CAD/CAM industry leader) in 2020",
+      "Six-figure ARR at exit",
+      "Active in DACH + France + Benelux at acquisition"
+    ],
+
+    "lessons": [
+      "B2B vertical SaaS lives or dies on customer development, not technology",
+      "When your buyer is non-technical and on-site, every UX decision compounds — or backfires — in the field"
+    ],
+
+    "keywords": ["founder", "b2b-saas", "construction-tech", "exit", "cadwork", "vertical-saas"]
+  },
+  {
+    "key": "rdv-ophtalmo",
+    "title": "RDV Ophtalmo — exited 2015",
+    "blurb": "Healthcare booking platform for ophthalmology. Mapped 2643 practitioners across France, sold to Point Vision in 2015.",
+    "stack": ["Web platform", "Founder", "Healthcare", "Geo data"],
+
+    "context": "First company. Healthcare booking platform for ophthalmology in France, with the underlying data work of mapping 2643 practitioners (the canonical national dataset at the time). Sold to Point Vision in 2015.",
+
+    "narrative": "Started while studying. The wait time to see an ophthalmologist in France was — and still is — measured in months. I built the booking platform on top of a dataset that didn't exist yet: a hand-curated map of every ophthalmologist in France, 2643 of them, with specialty, languages spoken, accessibility, average wait time. That dataset became the moat. Point Vision (a chain of ophthalmology clinics) acquired the company in 2015 partly for the platform, mostly for the data.\n\nThe core lesson, repeated since: the technical product is rarely the moat — the data, the relationships, the operational discipline are."
+    ,
+    "anecdotes": [
+      "I called every single one of the 2643 practitioners at least once during data collection. By the end I could tell which département a phone number was from by the dial tone."
+    ],
+
+    "outcomes": [
+      "Acquisition by Point Vision in 2015",
+      "Canonical France-wide ophthalmology practitioner dataset (2643 entries)",
+      "First exit at age ~22"
+    ],
+
+    "lessons": [
+      "Data + distribution > product",
+      "Founder-led sales scale further than founders think, especially in regulated verticals"
+    ],
+
+    "keywords": ["founder", "healthcare", "exit", "point-vision", "geo-data", "ophthalmology"]
+  },
+  {
+    "key": "wikipedia",
+    "title": "Wikipedia & Vikidia",
+    "blurb": "Wikipedia admin for 17 years. President of Vikidia 2020–2022. HEC thesis on Wikipedia governance, cited internationally.",
+    "href": "https://fr.wikipedia.org/wiki/Utilisateur:Plyd",
+    "stack": ["Open knowledge", "17 years", "Governance", "Community"],
+
+    "context": "Long-running open-knowledge involvement. Wikipedia admin (fr) since the late 2000s; president of Vikidia (the kid-oriented Wikipedia spin-off) 2020–2022; HEC master's thesis on Wikipedia governance.",
+
+    "narrative": "Open knowledge has been the through-line of my non-professional life for nearly two decades. Admin work on the French Wikipedia means dispute resolution, policy interpretation, occasional ban hammers — basically the same work that LLM safety teams do today, just at a slower clock speed and with a community of unpaid volunteers instead of a corporate trust-and-safety org. The patterns of moderation, escalation, and consensus-building map directly onto AI governance, which is part of why ISO 42001 work feels like familiar territory.\n\nVikidia presidency was operational: governance bylaws, treasury, partnerships with French ministries of education. HEC thesis was academic: a study of Wikipedia's emergent governance model, cited internationally in the years following.",
+
+    "anecdotes": [
+      "My HEC master's thesis on Wikipedia governance ended up cited in research papers in three languages. None of them paid me. Open knowledge is its own reward."
+    ],
+
+    "outcomes": [
+      "17 years of Wikipedia (fr) admin",
+      "Vikidia presidency 2020–2022",
+      "HEC thesis on Wikipedia governance with international academic citations"
+    ],
+
+    "lessons": [
+      "Community governance and AI governance are the same job under different uniforms",
+      "If you've moderated a Wikipedia edit war, you've done the hard part of trust-and-safety"
+    ],
+
+    "keywords": ["wikipedia", "vikidia", "governance", "open-knowledge", "community", "moderation", "hec-thesis"]
+  }
+]

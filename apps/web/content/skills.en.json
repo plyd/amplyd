@@ -1,0 +1,130 @@
+[
+  {
+    "group": "agents",
+    "name": "ReAct (hand-rolled)",
+    "level": "expert",
+    "years_xp": 2,
+    "evidence_project_keys": ["speedflow", "amplyd"],
+    "story": "Built the SpeedFlow agent loop as plain-Python ReAct after deciding LangChain/LangGraph weren't paying for themselves given the custom routing logic. State, tool dispatch and interrupts are all explicit — auditors can read the loop top-to-bottom."
+  },
+  {
+    "group": "agents",
+    "name": "LangGraph",
+    "level": "working",
+    "years_xp": 1,
+    "evidence_project_keys": ["amplyd"],
+    "story": "Used on Amplyd where the graph abstraction earns its keep. At SpeedFlow we deliberately did not migrate to it — this is a 'know when to use it, know when not to' skill."
+  },
+  {
+    "group": "agents",
+    "name": "MCP",
+    "level": "working",
+    "years_xp": 1,
+    "evidence_project_keys": ["speedflow", "amplyd"],
+    "story": "Designed and prototyped an MCP server at BKSystèmes exposing CRM, pricing engine and doc search. Production rollout came after my mission. Also using MCP on Amplyd to wire Notion content into the build."
+  },
+  {
+    "group": "agents",
+    "name": "Vercel AI SDK",
+    "level": "working",
+    "years_xp": 1,
+    "evidence_project_keys": ["amplyd"]
+  },
+  {
+    "group": "agents",
+    "name": "Tool design",
+    "level": "expert",
+    "years_xp": 2,
+    "evidence_project_keys": ["speedflow", "amplyd"],
+    "story": "The hardest part of agent work isn't the loop, it's writing tools the model actually understands. Strict types, narrow scopes, idempotent calls."
+  },
+  {
+    "group": "agents",
+    "name": "Eval harnesses",
+    "level": "working",
+    "years_xp": 2,
+    "evidence_project_keys": ["speedflow"]
+  },
+
+  { "group": "rag", "name": "BM25", "level": "working" },
+  { "group": "rag", "name": "Embeddings", "level": "working" },
+  { "group": "rag", "name": "Hybrid search", "level": "working" },
+  { "group": "rag", "name": "Re-ranking", "level": "working" },
+  { "group": "rag", "name": "Chunking", "level": "working" },
+
+  { "group": "routing", "name": "litellm", "level": "working" },
+  { "group": "routing", "name": "Claude", "level": "expert" },
+  { "group": "routing", "name": "GPT", "level": "working" },
+  { "group": "routing", "name": "Gemini", "level": "working" },
+  {
+    "group": "routing",
+    "name": "Cost/latency routing",
+    "level": "working",
+    "evidence_project_keys": ["speedflow"],
+    "story": "At SpeedFlow we routed across Claude/GPT/Gemini by cost and latency budget per task — saved ~€600/month on model spend with no measurable quality regression."
+  },
+
+  {
+    "group": "governance",
+    "name": "ISO 42001",
+    "level": "working",
+    "years_xp": 1,
+    "evidence_project_keys": ["speedflow", "amplyd"],
+    "story": "AFNOR-trained (attestation, 2025). Drove the SpeedFlow alignment work — versioned prompt registry, decision-trace API, audit-ready runbooks. Audit passed first time."
+  },
+  {
+    "group": "governance",
+    "name": "Phoenix (Arize)",
+    "level": "working",
+    "years_xp": 1,
+    "evidence_project_keys": ["speedflow"],
+    "story": "Chose Phoenix over LangFuse at SpeedFlow because OpenTelemetry-native and not vendor-locked."
+  },
+  {
+    "group": "governance",
+    "name": "LangFuse",
+    "level": "working",
+    "evidence_project_keys": ["amplyd"]
+  },
+  { "group": "governance", "name": "Guardrails", "level": "working" },
+  { "group": "governance", "name": "PII redaction", "level": "working" },
+  {
+    "group": "governance",
+    "name": "Audit trails",
+    "level": "expert",
+    "evidence_project_keys": ["speedflow"],
+    "story": "Built the decision-trace stack that let the ISO 42001 auditor reconstruct any past run in seconds."
+  },
+
+  { "group": "platform", "name": "Next.js 15", "level": "working" },
+  { "group": "platform", "name": "FastAPI", "level": "expert" },
+  { "group": "platform", "name": "GCP Cloud Run", "level": "expert" },
+  { "group": "platform", "name": "Azure AKS", "level": "working", "evidence_project_keys": ["loreal-observability"] },
+  { "group": "platform", "name": "Grafana / Prometheus / ELK", "level": "expert", "evidence_project_keys": ["loreal-observability"] },
+  { "group": "platform", "name": "Vercel", "level": "working" },
+  { "group": "platform", "name": "Terraform", "level": "working" },
+
+  {
+    "group": "languages",
+    "name": "Python",
+    "level": "expert",
+    "years_xp": 12,
+    "story": "Self-assessed 9/10. Daily driver since the early 2010s. Most production agent and data work."
+  },
+  {
+    "group": "languages",
+    "name": "Go",
+    "level": "working",
+    "years_xp": 4,
+    "story": "Self-assessed 7.5/10. Reach for it when latency or footprint matters."
+  },
+  {
+    "group": "languages",
+    "name": "TypeScript",
+    "level": "working",
+    "years_xp": 6,
+    "story": "Self-assessed 7/10. Solid on Node back-end work; Next.js front-end is more 6/10."
+  },
+  { "group": "languages", "name": "SQL", "level": "expert" },
+  { "group": "languages", "name": "Bash", "level": "expert" }
+]

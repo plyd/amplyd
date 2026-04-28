@@ -1,0 +1,58 @@
+[
+  {
+    "year": "2025",
+    "institution": "MIT",
+    "title": "Executive program — Applied AI",
+    "blurb": "Architecting AI systems in production, security and governance.",
+
+    "why": "Wanted formal grounding in production AI architecture and governance to back up the hands-on work I'd been doing on SpeedFlow. Picked MIT's executive track over a longer commitment because it matched the depth-without-the-detour I needed.",
+
+    "highlights": [
+      "Production-grade AI systems architecture",
+      "Security and threat modeling for LLM applications",
+      "Governance frameworks (NIST AI RMF, ISO 42001) in practice"
+    ]
+  },
+  {
+    "year": "2025",
+    "institution": "AFNOR",
+    "title": "ISO/IEC 42001 — training (attestation)",
+    "blurb": "AI management systems training — transparency, risk management, guardrails.",
+
+    "why": "Took the official AFNOR training to align my SpeedFlow ISO 42001 work with the canonical French interpretation of the standard. Important nuance: this is a training attestation, not a certifying-auditor credential — the certification path is a separate multi-year track.",
+
+    "highlights": [
+      "AI management system requirements per ISO/IEC 42001:2023",
+      "Risk assessment, transparency obligations, lifecycle controls",
+      "Bridges to ISO 27001 / 27701 (the work I did at L'Oréal)"
+    ]
+  },
+  {
+    "year": "2011",
+    "institution": "HEC Paris",
+    "title": "Specialized master's",
+    "blurb": "Strategy & entrepreneurship. Thesis on Wikipedia governance, cited internationally.",
+
+    "why": "Came back to HEC after INSA + a first company (RDV Ophtalmo) to get the strategic and financial language I'd been missing during fundraising. The thesis topic — Wikipedia governance — picked itself, given the 17-year involvement.",
+
+    "highlights": [
+      "Master's thesis on Wikipedia's emergent governance model, cited in Band & Gerafi's study on Wikipedia's economic value",
+      "Strategy, finance, organizational design",
+      "Continued international academic citations of the thesis in the years that followed"
+    ]
+  },
+  {
+    "year": "2006",
+    "institution": "INSA Rennes",
+    "title": "Engineer's degree",
+    "blurb": "Computer science — systems and software.",
+
+    "why": "INSA's combined engineer + science track was the obvious fit: rigorous CS, systems orientation, and the option to carry it into industry directly without a master's detour.",
+
+    "highlights": [
+      "Computer science: systems, networks, software engineering",
+      "First production projects (intern + side gigs) during the curriculum",
+      "Foundation that's held up across 15 years of stack rotations"
+    ]
+  }
+]

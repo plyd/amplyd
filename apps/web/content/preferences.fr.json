@@ -1,0 +1,23 @@
+{
+  "remote": "full",
+  "locations": ["Rennes", "Paris"],
+  "availability": "Ouvert à de nouvelles missions / postes à partir du T2 2026.",
+  "contract_types": ["freelance", "cdi"],
+
+  "sectors_of_interest": [
+    "Agents IA en production",
+    "Gouvernance IA et alignement ISO 42001",
+    "SaaS industriel / B2B",
+    "Santé et verticales régulées",
+    "Savoir libre et tech civique"
+  ],
+
+  "values": "Ce qui compte pour moi : livrer des systèmes IA auditables de bout en bout (pas du 'fais-moi confiance'), la prod plutôt que la démo, choisir l'outil ennuyeux quand il fait le job, et écrire du code qu'un auditeur ou un junior peuvent vraiment lire. Je suis au mieux dans une petite équipe senior où le ratio relecteurs/producteurs reste sain.\n\nFourchettes indicatives : ~800 €/jour TJM en freelance ; ~120–130 k€ pour le bon CDI. Toujours négociable selon le contexte.",
+
+  "red_flags": [
+    "Stacks Java legacy sans chemin de modernisation",
+    "Démos IA sans plan d'observabilité ni d'évaluation",
+    "Réécritures greenfield dont le seul but est la réécriture",
+    "Cultures où 'gouvernance' veut dire slides, pas application"
+  ]
+}

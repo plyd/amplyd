@@ -1,0 +1,58 @@
+[
+  {
+    "year": "2025",
+    "institution": "MIT",
+    "title": "Programme exécutif — IA appliquée",
+    "blurb": "Architecture des systèmes d'IA en production, sécurité et gouvernance.",
+
+    "why": "Je voulais une base formelle en architecture IA prod et en gouvernance pour appuyer le terrain que je faisais déjà sur SpeedFlow. J'ai pris le format exécutif MIT plutôt qu'un engagement plus long parce qu'il matchait la profondeur-sans-le-détour dont j'avais besoin.",
+
+    "highlights": [
+      "Architecture de systèmes IA de niveau production",
+      "Sécurité et threat modeling pour applications LLM",
+      "Frameworks de gouvernance (NIST AI RMF, ISO 42001) en pratique"
+    ]
+  },
+  {
+    "year": "2025",
+    "institution": "AFNOR",
+    "title": "ISO/IEC 42001 — formation (attestation)",
+    "blurb": "Formation au management des systèmes d'IA — transparence, gestion des risques, garde-fous.",
+
+    "why": "J'ai suivi la formation officielle AFNOR pour aligner mon travail ISO 42001 sur SpeedFlow avec l'interprétation canonique française de la norme. Nuance importante : c'est une attestation de formation, pas un titre d'auditeur certifié — le chemin de certification est un parcours séparé sur plusieurs années.",
+
+    "highlights": [
+      "Exigences du système de management de l'IA selon ISO/IEC 42001:2023",
+      "Analyse de risque, obligations de transparence, contrôles cycle de vie",
+      "Articulation avec ISO 27001 / 27701 (le travail que j'avais fait chez L'Oréal)"
+    ]
+  },
+  {
+    "year": "2011",
+    "institution": "HEC Paris",
+    "title": "Mastère spécialisé",
+    "blurb": "Stratégie & entrepreneuriat. Mémoire sur la gouvernance de Wikipédia, cité à l'international.",
+
+    "why": "Je suis revenu à HEC après l'INSA + une première société (RDV Ophtalmo) pour acquérir le langage stratégique et financier qui m'avait manqué pendant les levées. Le sujet de mémoire — la gouvernance Wikipédia — s'est imposé tout seul, vu les 17 ans d'engagement.",
+
+    "highlights": [
+      "Mémoire sur le modèle émergent de gouvernance Wikipédia, cité dans l'étude Band & Gerafi sur la valeur économique de Wikipédia",
+      "Stratégie, finance, design organisationnel",
+      "Citations académiques internationales du mémoire dans les années qui ont suivi"
+    ]
+  },
+  {
+    "year": "2006",
+    "institution": "INSA Rennes",
+    "title": "Diplôme d'ingénieur",
+    "blurb": "Informatique — systèmes et logiciels.",
+
+    "why": "Le cursus INSA ingénieur + sciences était l'évident : informatique rigoureuse, orientation systèmes, et option de basculer en industrie directement sans détour par un master.",
+
+    "highlights": [
+      "Informatique : systèmes, réseaux, génie logiciel",
+      "Premiers projets prod (stage + missions à côté) pendant le cursus",
+      "Socle qui a tenu sur 15 ans de rotations de stack"
+    ]
+  }
+]
