@@ -5,6 +5,7 @@ import { useLocale, useTranslations } from 'next-intl';
 import { useChat } from '@ai-sdk/react';
 import { Send, Sparkles, User } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { useCvView } from '@/components/cv/CvViewContext';
 
 /**
  * Right-side panel: "Contact Vincent". Per the brief, the AI agent identity
@@ -20,10 +21,31 @@ export function ChatPanel() {
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const { messages, sendMessage, status, error } = useChat();
+  const { setView } = useCvView();
+  // Track which message id we last dispatched so we don't re-set the view on
+  // every render while a stream is in progress.
+  const lastDispatchedRef = useRef<string | null>(null);
 
   useEffect(() => {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: 'smooth' });
   }, [messages, status]);
+
+  // When a new assistant message carries a data-cv-view part, dispatch it to
+  // the shared CvViewContext so the Resume reorganizes itself.
+  useEffect(() => {
+    for (let i = messages.length - 1; i >= 0; i--) {
+      const m = messages[i]!;
+      if (m.role !== 'assistant') continue;
+      const part = m.parts.find((p) => p.type === 'data-cv-view');
+      if (!part) continue;
+      if (lastDispatchedRef.current === m.id) return;
+      // AI SDK v6 data parts carry the payload under `data`.
+      const payload = (part as { data?: unknown }).data;
+      const accepted = setView(payload);
+      if (accepted) lastDispatchedRef.current = m.id;
+      return;
+    }
+  }, [messages, setView]);
 
   const isBusy = status === 'streaming' || status === 'submitted';
   const hasMessages = messages.length > 0;

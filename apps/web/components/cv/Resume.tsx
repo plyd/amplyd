@@ -3,7 +3,8 @@
  *
  * The default render (no CvView dispatched) is byte-equivalent to the previous
  * server-only render. The overlay only kicks in when an agent (or the demo
- * trigger) dispatches a CvView through the provider.
+ * trigger) dispatches a CvView through the provider — which is mounted higher
+ * up in `[locale]/layout.tsx` so it spans both the Resume and the ChatPanel.
  */
 
 import { getTranslations } from 'next-intl/server';
@@ -14,7 +15,6 @@ import {
   loadSkills,
   loadTimeline,
 } from '@/lib/content';
-import { CvViewProvider } from '@/components/cv/CvViewContext';
 import { ResumeView, type ResumeStrings } from '@/components/cv/ResumeView';
 
 export async function Resume({ locale }: { locale: string }) {
@@ -54,14 +54,12 @@ export async function Resume({ locale }: { locale: string }) {
   })).filter((g) => g.items.length > 0);
 
   return (
-    <CvViewProvider>
-      <ResumeView
-        timeline={roles}
-        projects={projects}
-        education={education}
-        skillGroups={skillGroups}
-        strings={strings}
-      />
-    </CvViewProvider>
+    <ResumeView
+      timeline={roles}
+      projects={projects}
+      education={education}
+      skillGroups={skillGroups}
+      strings={strings}
+    />
   );
 }

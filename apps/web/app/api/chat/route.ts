@@ -3,6 +3,8 @@ import { z } from 'zod';
 import { createUIMessageStream, createUIMessageStreamResponse } from 'ai';
 import { auth } from '@/auth';
 import { checkRateLimit, getClientIp } from '@/lib/ratelimit';
+import { parseCvView } from '@/lib/cvView';
+import { pickPresetForMessage } from '@/lib/cvViewPresets';
 
 export const runtime = 'nodejs';
 
@@ -133,7 +135,16 @@ export async function POST(req: Request) {
   const userMessage = lastUserText(parsed.data.messages) || '(message vide)';
   const reply = placeholderReply({ locale, userName, userMessage });
 
-  // 5) Stream as AI SDK UI message chunks
+  // 5) Pick a CvView preset based on keywords in the user message. The real
+  //    LangGraph agent (M6) will replace this with a model-driven choice; for
+  //    now this is enough to drive the overlay end-to-end.
+  //
+  //    Re-validate through parseCvView so a typo in the preset table can't
+  //    leak past the schema — the same guard the client applies on receipt.
+  const preset = pickPresetForMessage(userMessage);
+  const cvView = preset ? parseCvView(preset) : null;
+
+  // 6) Stream as AI SDK UI message chunks
   const messageId = crypto.randomUUID();
   const stream = createUIMessageStream({
     execute: async ({ writer }) => {
@@ -145,6 +156,13 @@ export async function POST(req: Request) {
         await new Promise((r) => setTimeout(r, 18));
       }
       writer.write({ type: 'text-end', id: messageId });
+
+      // Emit the CvView after the text so it lands as a separate part on the
+      // assistant message; the order is irrelevant for correctness but feels
+      // natural for any human reading the SSE stream.
+      if (cvView) {
+        writer.write({ type: 'data-cv-view', data: cvView });
+      }
     },
     onError: () => 'stream_error',
   });
