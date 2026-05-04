@@ -26,15 +26,17 @@ FROM gcr.io/distroless/python3-debian12:nonroot
 
 WORKDIR /app
 
-# Bring in the resolved venv and source
-COPY --from=builder --chown=nonroot:nonroot /app/.venv /app/.venv
+# Bring in the resolved venv and source. The venv's `bin/python` is a symlink
+# to the builder's interpreter (/usr/bin/python3.12 in the uv image), which
+# is missing from the distroless rootfs. We invoke the distroless python
+# directly and just point PYTHONPATH at the venv's site-packages.
+COPY --from=builder --chown=nonroot:nonroot /app/.venv/lib /app/.venv/lib
 COPY --from=builder --chown=nonroot:nonroot /app/src /app/src
 
-ENV PATH="/app/.venv/bin:$PATH" \
-    PYTHONPATH="/app" \
+ENV PYTHONPATH="/app:/app/.venv/lib/python3.12/site-packages" \
     PORT=8080
 
 EXPOSE 8080
 USER nonroot
 
-ENTRYPOINT ["/app/.venv/bin/python", "-m", "uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8080"]
+ENTRYPOINT ["/usr/bin/python3.12", "-m", "uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8080"]
