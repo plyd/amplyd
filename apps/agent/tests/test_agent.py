@@ -80,6 +80,16 @@ def test_system_prompt_has_commercial_posture() -> None:
     assert "TJM" in prompt
 
 
+def test_system_prompt_forbids_first_person_as_vincent() -> None:
+    """The agent must speak ABOUT Vincent, not AS Vincent — so a
+    hallucination is visibly an assistant slip, not Vincent's words."""
+    prompt = agent_mod._system_prompt("en")
+    assert "ABOUT Vincent" in prompt
+    assert "NEVER AS Vincent" in prompt
+    # Explicit ban on first-person tokens
+    assert "NEVER use 'I' / 'me'" in prompt
+
+
 def test_system_prompt_locale_switch() -> None:
     en = agent_mod._system_prompt("en")
     fr = agent_mod._system_prompt("fr")

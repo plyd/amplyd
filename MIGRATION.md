@@ -54,6 +54,23 @@ listed here is operational.
 - [ ] Submit `https://www.amplyd.com/sitemap.xml` in Google Search Console
       and Bing Webmaster Tools.
 
+## Resend domain (after DNS swap)
+
+Until `amplyd.com` is verified in Resend, the agent uses
+`onboarding@resend.dev` as the from address — it works without DNS but only
+delivers to the Resend account owner's email (`vincent.juhel@gmail.com`).
+Once DNS is on Vercel:
+
+- [ ] In Resend dashboard, add the `amplyd.com` domain and copy the SPF +
+      DKIM CNAME records.
+- [ ] Add those records at the registrar (same one used for the Vercel
+      apex/CNAME above).
+- [ ] Wait for Resend to flip the domain to "verified" (usually a few
+      minutes after DNS propagates).
+- [ ] Update Cloud Run env: `gcloud run services update amplyd-agent
+      --region=europe-west1 --update-env-vars=RESEND_FROM_EMAIL=hello@amplyd.com`.
+- [ ] Send a probe and confirm delivery from `hello@amplyd.com`.
+
 ## Rollback
 
 If anything is wrong, revert the DNS records to their prior values. Vercel

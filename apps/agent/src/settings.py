@@ -36,8 +36,11 @@ class Settings(BaseSettings):
     langfuse_host: str = "https://cloud.langfuse.com"
 
     # --- Resend ---
+    # Default sender is Resend's sandbox address; it works without DNS setup
+    # but only delivers to the API key owner's email. Switch to a verified
+    # domain (e.g. ``hello@amplyd.com``) once SPF/DKIM are live in Resend.
     resend_api_key: str | None = None
-    resend_from_email: str = "hello@amplyd.com"
+    resend_from_email: str = "onboarding@resend.dev"
     owner_email: str = ""  # injected via env / Secret Manager — never commit a real value
 
     # --- Owner contact ---
