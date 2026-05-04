@@ -36,6 +36,7 @@ from langchain_core.messages import (
 from langchain_core.runnables import Runnable
 
 from src.llm import get_chat_model
+from src.tools.book_meeting import book_meeting
 from src.tools.compose_cv_view import compose_cv_view
 from src.tools.cv_tools import get_cv
 
@@ -43,7 +44,7 @@ logger = logging.getLogger("amplyd.agent.loop")
 
 MAX_TOOL_ITERATIONS = 6
 
-TOOLS = [get_cv, compose_cv_view]
+TOOLS = [get_cv, compose_cv_view, book_meeting]
 TOOLS_BY_NAME = {t.name: t for t in TOOLS}
 
 
@@ -73,9 +74,23 @@ def _system_prompt(locale: Literal["en", "fr"]) -> str:
         "the visitor's interest, expand them, and surface the most relevant "
         "anecdote/achievement indices. NEVER invent text — only point at "
         "indices/keys you have seen in get_cv. The 'reason' is a short "
-        "single-sentence banner shown above the CV.\n\n"
+        "single-sentence banner shown above the CV.\n"
+        "- book_meeting(context): surface a Cal.com booking CTA inline in "
+        "the chat. Use it once per conversation, after delivering value, "
+        "when the visitor mentions a concrete project, asks for a contact, "
+        "or has answered the qualification question and is a plausible fit.\n\n"
         "Style: warm, concise, no fluff. If the visitor's intent is unclear, "
-        "ask one short question before composing a CvView."
+        "ask one short question before composing a CvView.\n\n"
+        "Conversion behavior (lead qualification, keep it light):\n"
+        "1. Always answer the visitor's question first — value before any ask.\n"
+        "2. After a substantive reply, you may slip in AT MOST ONE natural "
+        "qualifying question among: type of project, timeline, team size, "
+        "freelance vs CDI context. Never stack questions, never interrogate.\n"
+        "3. If the visitor signals strong intent (mentions a concrete "
+        "project, asks how to reach Vincent, requests a meeting) call "
+        "book_meeting() with a one-sentence context, then stop pushing.\n"
+        "4. NEVER ask for email or phone — Cal.com handles that. NEVER "
+        "quote a daily rate (TJM)."
     )
     if locale == "fr":
         base += "\n\nReply in French unless the visitor writes in another language."
@@ -216,5 +231,7 @@ async def run_agent_stream(
 
             if name == "compose_cv_view" and isinstance(result, dict):
                 yield {"type": "data-cv-view", "data": result}
+            elif name == "book_meeting" and isinstance(result, dict):
+                yield {"type": "data-book-meeting", "data": result}
 
     logger.info("hit MAX_TOOL_ITERATIONS=%d, returning", MAX_TOOL_ITERATIONS)

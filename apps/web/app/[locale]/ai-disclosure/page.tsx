@@ -9,7 +9,28 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'aiPage' });
-  return { title: t('title') };
+  const title = t('title');
+  const description = t('intro');
+  return {
+    title,
+    description,
+    alternates: {
+      canonical: `/${locale}/ai-disclosure`,
+      languages: {
+        en: '/en/ai-disclosure',
+        fr: '/fr/ai-disclosure',
+        'x-default': '/en/ai-disclosure',
+      },
+    },
+    openGraph: {
+      type: 'article',
+      locale: locale === 'fr' ? 'fr_FR' : 'en_US',
+      title,
+      description,
+      url: `/${locale}/ai-disclosure`,
+    },
+    twitter: { card: 'summary_large_image', title, description },
+  };
 }
 
 export default async function AiDisclosurePage({

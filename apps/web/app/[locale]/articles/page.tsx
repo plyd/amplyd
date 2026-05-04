@@ -1,9 +1,41 @@
 import Link from 'next/link';
+import type { Metadata } from 'next';
 import { setRequestLocale, getTranslations } from 'next-intl/server';
 import { ArrowRight } from 'lucide-react';
 import { Container } from '@/components/ui/Container';
 import { Card } from '@/components/ui/Card';
 import { listArticles } from '@/lib/content';
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'articles' });
+  const title = t('title');
+  const description = t('subtitle');
+  return {
+    title,
+    description,
+    alternates: {
+      canonical: `/${locale}/articles`,
+      languages: {
+        en: '/en/articles',
+        fr: '/fr/articles',
+        'x-default': '/en/articles',
+      },
+    },
+    openGraph: {
+      type: 'website',
+      locale: locale === 'fr' ? 'fr_FR' : 'en_US',
+      title,
+      description,
+      url: `/${locale}/articles`,
+    },
+    twitter: { card: 'summary_large_image', title, description },
+  };
+}
 
 export default async function ArticlesPage({
   params,

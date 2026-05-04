@@ -7,6 +7,8 @@ export type ArticleMeta = {
   locale: string;
   title: string;
   draft: boolean;
+  description?: string;
+  datePublished?: string;
 };
 
 // ──────────────────────────────────────────────────────────────────────────
@@ -155,6 +157,8 @@ export async function listArticles(locale: string): Promise<ArticleMeta[]> {
       locale,
       title: fm.title ?? fm.slug ?? f,
       draft: fm.draft === 'true',
+      description: fm.description,
+      datePublished: fm.datePublished ?? fm.date,
     });
   }
   return metas
@@ -247,6 +251,8 @@ export async function readArticle(
         locale,
         title: fm.title ?? slug,
         draft: fm.draft === 'true',
+        description: fm.description,
+        datePublished: fm.datePublished ?? fm.date,
       },
       body,
     };

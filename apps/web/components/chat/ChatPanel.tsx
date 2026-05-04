@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 import { useChat } from '@ai-sdk/react';
-import { Send, Sparkles, User, X } from 'lucide-react';
+import { Calendar, Send, Sparkles, User, X } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { cn } from '@/lib/utils';
@@ -114,6 +114,14 @@ export function ChatPanel() {
               .map((p) => ('text' in p ? p.text : ''))
               .join('');
             const isUser = m.role === 'user';
+            // The agent emits a `data-book-meeting` part when it judges the
+            // visitor is ready to book — render it as an inline CTA below
+            // the bubble.
+            const bookPart = !isUser
+              ? m.parts.find((p) => p.type === 'data-book-meeting')
+              : undefined;
+            const bookData = (bookPart as { data?: { url?: string; context?: string } } | undefined)
+              ?.data;
             return (
               <div
                 key={m.id}
@@ -148,6 +156,17 @@ export function ChatPanel() {
                     ''
                   )}
                 </div>
+                {bookData?.url && (
+                  <a
+                    href={bookData.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-1 inline-flex items-center gap-2 rounded-md border border-[var(--color-accent)] bg-[var(--color-accent)]/10 px-3 py-1.5 text-xs font-medium text-[var(--color-accent)] transition hover:bg-[var(--color-accent)]/20"
+                  >
+                    <Calendar size={12} />
+                    {t('bookNow')}
+                  </a>
+                )}
                 {isUser && (
                   <span className="inline-flex items-center gap-1 text-[10px] uppercase tracking-wider text-[var(--color-text-muted)]">
                     <User size={10} />

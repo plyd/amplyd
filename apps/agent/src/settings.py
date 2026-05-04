@@ -43,6 +43,14 @@ class Settings(BaseSettings):
     # --- Owner contact ---
     owner_phone: str | None = None
 
+    # --- Booking (Cal.com) ---
+    calcom_username: str = "vincent-juhel-jvhelq"
+    calcom_event_slug: str = "30min"
+
+    @property
+    def calcom_booking_url(self) -> str:
+        return f"https://cal.eu/{self.calcom_username}/{self.calcom_event_slug}"
+
     # --- Corpus ---
     content_dir: str = "../web/content"
 

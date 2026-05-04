@@ -19,7 +19,9 @@
     "facts": "20 ans XP · ISO/IEC 42001 · INSA · HEC · MIT",
     "tagline": "Ouvert aux missions freelance et postes CDI senior. Agents, RAG, gouvernance — du POC à la prod.",
     "ctaChat": "Contacter Vincent",
-    "ctaCV": "Voir le CV"
+    "ctaCV": "Voir le CV",
+    "ctaBook": "Réserver 30min",
+    "ctaBookAria": "Réserver un appel de 30 minutes avec Vincent"
   },
   "resume": {
     "sections": {
@@ -54,6 +56,7 @@
     "error": "Une erreur est survenue. Réessayez dans un instant.",
     "legalHint": "Vos messages sont traités selon notre politique de confidentialité.",
     "learnMore": "En savoir plus",
+    "bookNow": "Réserver maintenant",
     "suggestions": {
       "matchJD": "Matcher une offre",
       "strongestProject": "Son projet le plus fort",

@@ -1,0 +1,23 @@
+# Vincent Juhel — Senior AI Architect
+
+> Vincent Juhel est un architecte IA senior basé à Rennes/Paris (France),
+> spécialisé en systèmes agentiques (LangGraph), RAG, routage multi-LLM et
+> gouvernance ISO/IEC 42001. 20 ans d'XP, INSA + HEC + MIT.
+> Disponible pour missions freelance et postes CDI senior.
+
+## CV & parcours
+- [CV en français](https://www.amplyd.com/fr): expérience, projets, compétences, formation
+- [CV in English](https://www.amplyd.com/en): experience, projects, skills, education
+
+## Articles techniques
+- [Articles FR](https://www.amplyd.com/fr/articles): notes sur agents, RAG, routage, gouvernance
+- [Articles EN](https://www.amplyd.com/en/articles): notes on agents, RAG, routing, governance
+
+## Transparence
+- [Mention IA](https://www.amplyd.com/fr/ai-disclosure): comment fonctionne l'agent du site
+- [Confidentialité](https://www.amplyd.com/fr/privacy): RGPD, traitement des données
+
+## Contact
+- Chat agentique sur la page d'accueil (réponses immédiates, qualification, booking)
+- Booking direct: https://cal.eu/vincent-juhel-jvhelq/30min
+- GitHub: https://github.com/plyd

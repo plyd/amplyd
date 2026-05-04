@@ -19,7 +19,9 @@
     "facts": "20 yrs XP · ISO/IEC 42001 · INSA · HEC · MIT",
     "tagline": "Open to freelance missions and senior CDI roles. Agents, RAG, governance — POC to production.",
     "ctaChat": "Contact Vincent",
-    "ctaCV": "Read the resume"
+    "ctaCV": "Read the resume",
+    "ctaBook": "Book 30min",
+    "ctaBookAria": "Book a 30-minute call with Vincent"
   },
   "resume": {
     "sections": {
@@ -54,6 +56,7 @@
     "error": "Something went wrong. Try again in a moment.",
     "legalHint": "Your messages are processed under our privacy policy.",
     "learnMore": "Learn more",
+    "bookNow": "Book now",
     "suggestions": {
       "matchJD": "Match a job description",
       "strongestProject": "His strongest project",

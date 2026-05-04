@@ -3,6 +3,7 @@ import { ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { Container } from '@/components/ui/Container';
 import { OpenChatButton } from './OpenChatButton';
+import { BookCallButton } from './BookCallButton';
 import { TerminalBackdrop } from './TerminalBackdrop';
 
 export async function Hero({ locale }: { locale: string }) {
@@ -35,6 +36,7 @@ export async function Hero({ locale }: { locale: string }) {
               <ArrowRight size={14} />
             </a>
           </Button>
+          <BookCallButton label={t('ctaBook')} ariaLabel={t('ctaBookAria')} />
         </div>
       </Container>
     </section>
