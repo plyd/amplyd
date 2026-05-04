@@ -1,7 +1,8 @@
 import { getTranslations } from 'next-intl/server';
-import { ArrowRight, MessageSquare } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { Container } from '@/components/ui/Container';
+import { OpenChatButton } from './OpenChatButton';
 import { TerminalBackdrop } from './TerminalBackdrop';
 
 export async function Hero({ locale }: { locale: string }) {
@@ -27,10 +28,7 @@ export async function Hero({ locale }: { locale: string }) {
         </p>
         <p className="max-w-2xl text-sm text-[var(--color-text-secondary)]">{t('tagline')}</p>
         <div className="flex flex-wrap gap-3 pt-2">
-          <Button>
-            <MessageSquare size={16} />
-            {t('ctaChat')}
-          </Button>
+          <OpenChatButton label={t('ctaChat')} />
           <Button variant="secondary" asChild>
             <a href="#cv">
               {t('ctaCV')}

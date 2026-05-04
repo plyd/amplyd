@@ -80,7 +80,9 @@ export function TerminalBackdrop() {
   return (
     <pre
       aria-hidden
-      className="pointer-events-none absolute inset-0 select-none overflow-hidden whitespace-pre-wrap p-12 font-mono text-base leading-relaxed text-[var(--color-text-primary)] opacity-[0.08]"
+      // Hidden on small screens — at 8% opacity it still competes with the
+      // hero copy on phones and hurts legibility.
+      className="pointer-events-none absolute inset-0 hidden select-none overflow-hidden whitespace-pre-wrap p-12 font-mono text-base leading-relaxed text-[var(--color-text-primary)] opacity-[0.08] md:block"
     >
       {text}
       {!reduced && <span className="ml-1 inline-block h-4 w-2 animate-pulse bg-[var(--color-accent)]" />}

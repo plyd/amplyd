@@ -3,16 +3,22 @@
 import { useEffect, useRef, useState } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 import { useChat } from '@ai-sdk/react';
-import { Send, Sparkles, User } from 'lucide-react';
+import { Send, Sparkles, User, X } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { cn } from '@/lib/utils';
 import { useCvView } from '@/components/cv/CvViewContext';
 
 /**
- * Right-side panel: "Contact Vincent". Per the brief, the AI agent identity
- * is NOT advertised upfront — it reveals itself on the first reply, where
- * a small badge marks the bubble as coming from the AI.
+ * Contact panel.
+ *
+ * Layout:
+ *   - lg+: pinned 380px aside on the right of the page.
+ *   - <lg: slide-up bottom sheet with backdrop, opened by the Hero CTA via
+ *     a `amplyd:open-chat` window event (see OpenChatButton).
+ *
+ * Per the brief, the AI agent identity is NOT advertised upfront — it
+ * reveals itself on the first reply via a Sparkles badge on the bubble.
  *
  * Wired to `/api/chat`, which either proxies to the LangGraph agent
  * (when AGENT_BASE_URL is set) or falls back to the keyword placeholder.
@@ -21,6 +27,7 @@ export function ChatPanel() {
   const t = useTranslations('chat');
   const locale = useLocale();
   const [draft, setDraft] = useState('');
+  const [mobileOpen, setMobileOpen] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const { messages, sendMessage, status, error } = useChat();
@@ -32,6 +39,26 @@ export function ChatPanel() {
   useEffect(() => {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: 'smooth' });
   }, [messages, status]);
+
+  // Open/close the mobile sheet from anywhere via a custom window event.
+  // Also close on Escape and lock body scroll while open.
+  useEffect(() => {
+    const open = () => setMobileOpen(true);
+    window.addEventListener('amplyd:open-chat', open);
+    return () => window.removeEventListener('amplyd:open-chat', open);
+  }, []);
+
+  useEffect(() => {
+    if (!mobileOpen) return;
+    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setMobileOpen(false);
+    document.addEventListener('keydown', onKey);
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.removeEventListener('keydown', onKey);
+      document.body.style.overflow = prevOverflow;
+    };
+  }, [mobileOpen]);
 
   // When a new assistant message carries a data-cv-view part, dispatch it to
   // the shared CvViewContext so the Resume reorganizes itself.
@@ -61,20 +88,26 @@ export function ChatPanel() {
     setDraft('');
   }
 
-  return (
-    <aside
-      className="hidden lg:flex lg:w-[380px] lg:shrink-0 lg:flex-col lg:border-l lg:border-[var(--color-border)] lg:bg-[var(--color-bg-elevated)]"
-      aria-label={t('title')}
-    >
-      <div className="sticky top-16 flex h-[calc(100vh-4rem)] flex-col">
-        <header className="flex items-center justify-between border-b border-[var(--color-border)] px-5 py-4">
-          <h2 className="text-sm font-semibold tracking-wide">{t('title')}</h2>
+  const panelBody = (
+    <>
+      <header className="flex items-center justify-between border-b border-[var(--color-border)] px-5 py-4">
+        <h2 className="text-sm font-semibold tracking-wide">{t('title')}</h2>
+        <div className="flex items-center gap-3">
           <span className="text-[10px] uppercase tracking-wider text-[var(--color-text-muted)]">
             {t('status')}
           </span>
-        </header>
+          <button
+            type="button"
+            onClick={() => setMobileOpen(false)}
+            aria-label={t('close')}
+            className="rounded-md p-1 text-[var(--color-text-muted)] hover:bg-[var(--color-bg)] hover:text-[var(--color-text-primary)] lg:hidden"
+          >
+            <X size={16} />
+          </button>
+        </div>
+      </header>
 
-        <div ref={scrollRef} className="flex flex-1 flex-col gap-3 overflow-y-auto px-5 py-5">
+      <div ref={scrollRef} className="flex flex-1 flex-col gap-3 overflow-y-auto px-5 py-5">
           {messages.map((m) => {
             const text = m.parts
               .filter((p) => p.type === 'text')
@@ -144,33 +177,72 @@ export function ChatPanel() {
           )}
         </div>
 
-        <form className="border-t border-[var(--color-border)] p-3" onSubmit={onSubmit}>
-          <div className="flex items-end gap-2 rounded-lg border border-[var(--color-border)] bg-[var(--color-bg)] p-2 focus-within:border-[var(--color-border-strong)]">
-            <textarea
-              value={draft}
-              onChange={(e) => setDraft(e.target.value)}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter' && !e.shiftKey) {
-                  e.preventDefault();
-                  onSubmit(e as unknown as React.FormEvent);
-                }
-              }}
-              placeholder={t('placeholder')}
-              rows={2}
-              disabled={isBusy}
-              className="flex-1 resize-none bg-transparent px-2 py-1 text-sm placeholder:text-[var(--color-text-muted)] focus:outline-none disabled:cursor-not-allowed"
-            />
-            <button
-              type="submit"
-              disabled={isBusy || draft.trim().length === 0}
-              aria-label={t('send')}
-              className="rounded-md bg-[var(--color-accent)] p-2 text-black transition hover:bg-[var(--color-accent-glow)] disabled:cursor-not-allowed disabled:opacity-60"
-            >
-              <Send size={14} />
-            </button>
-          </div>
-        </form>
+      <form className="border-t border-[var(--color-border)] p-3" onSubmit={onSubmit}>
+        <div className="flex items-end gap-2 rounded-lg border border-[var(--color-border)] bg-[var(--color-bg)] p-2 focus-within:border-[var(--color-border-strong)]">
+          <textarea
+            value={draft}
+            onChange={(e) => setDraft(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                onSubmit(e as unknown as React.FormEvent);
+              }
+            }}
+            placeholder={t('placeholder')}
+            rows={2}
+            disabled={isBusy}
+            className="flex-1 resize-none bg-transparent px-2 py-1 text-sm placeholder:text-[var(--color-text-muted)] focus:outline-none disabled:cursor-not-allowed"
+          />
+          <button
+            type="submit"
+            disabled={isBusy || draft.trim().length === 0}
+            aria-label={t('send')}
+            className="rounded-md bg-[var(--color-accent)] p-2 text-black transition hover:bg-[var(--color-accent-glow)] disabled:cursor-not-allowed disabled:opacity-60"
+          >
+            <Send size={14} />
+          </button>
+        </div>
+      </form>
+    </>
+  );
+
+  return (
+    <>
+      {/* Desktop: pinned right-side aside */}
+      <aside
+        className="hidden lg:flex lg:w-[380px] lg:shrink-0 lg:flex-col lg:border-l lg:border-[var(--color-border)] lg:bg-[var(--color-bg-elevated)]"
+        aria-label={t('title')}
+      >
+        <div className="sticky top-16 flex h-[calc(100vh-4rem)] flex-col">{panelBody}</div>
+      </aside>
+
+      {/* Mobile: slide-up bottom sheet, opened via the Hero CTA */}
+      <div
+        className={cn(
+          'fixed inset-0 z-40 lg:hidden',
+          mobileOpen ? 'pointer-events-auto' : 'pointer-events-none',
+        )}
+        aria-hidden={!mobileOpen}
+      >
+        <div
+          onClick={() => setMobileOpen(false)}
+          className={cn(
+            'absolute inset-0 bg-black/60 transition-opacity',
+            mobileOpen ? 'opacity-100' : 'opacity-0',
+          )}
+        />
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label={t('title')}
+          className={cn(
+            'absolute inset-x-0 bottom-0 flex max-h-[88vh] flex-col rounded-t-2xl border-t border-[var(--color-border)] bg-[var(--color-bg-elevated)] shadow-2xl transition-transform duration-200 ease-out',
+            mobileOpen ? 'translate-y-0' : 'translate-y-full',
+          )}
+        >
+          {panelBody}
+        </div>
       </div>
-    </aside>
+    </>
   );
 }
