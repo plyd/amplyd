@@ -319,6 +319,20 @@ export function ResumeView({ timeline, projects, education, skillGroups, strings
 
           {/* SIDE COLUMN */}
           <aside className="flex flex-col gap-10">
+            {/* Portrait */}
+            <div className="flex justify-center md:justify-start">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/og-photo.jpeg"
+                alt="Vincent Juhel"
+                width={224}
+                height={224}
+                loading="lazy"
+                decoding="async"
+                className="aspect-square w-40 rounded-lg border border-[var(--color-border)] object-cover md:w-56"
+              />
+            </div>
+
             {/* Education */}
             {education.length > 0 && (
               <div className="flex flex-col gap-4">

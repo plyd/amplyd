@@ -59,6 +59,34 @@ async def test_locale_fr_does_not_crash(monkeypatch: pytest.MonkeyPatch) -> None
     assert deltas == "Bonjour."
 
 
+def test_notify_vincent_is_registered() -> None:
+    """The tool must be wired into the agent's TOOLS list, otherwise the
+    LLM cannot call it even with the right system prompt."""
+    assert "notify_vincent" in agent_mod.TOOLS_BY_NAME
+    assert "book_meeting" in agent_mod.TOOLS_BY_NAME
+
+
+def test_system_prompt_has_commercial_posture() -> None:
+    """Smoke-test the rewrite: prompt must lead with problem-solving, not
+    CV recitation, and must mention notify_vincent."""
+    prompt = agent_mod._system_prompt("en")
+    # Posture markers
+    assert "Lead with the problem" in prompt
+    assert "proof point" in prompt
+    # Tool documented
+    assert "notify_vincent" in prompt
+    # Hard constraints kept
+    assert "NEVER ask for email or phone" in prompt
+    assert "TJM" in prompt
+
+
+def test_system_prompt_locale_switch() -> None:
+    en = agent_mod._system_prompt("en")
+    fr = agent_mod._system_prompt("fr")
+    assert "Reply in English" in en
+    assert "Reply in French" in fr
+
+
 @pytest.mark.asyncio
 async def test_no_tool_calls_means_single_turn(monkeypatch: pytest.MonkeyPatch) -> None:
     """The fake model never returns tool_calls, so the loop exits after one turn."""
