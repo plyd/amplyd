@@ -4,6 +4,8 @@ import { useEffect, useRef, useState } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 import { useChat } from '@ai-sdk/react';
 import { Send, Sparkles, User } from 'lucide-react';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import { cn } from '@/lib/utils';
 import { useCvView } from '@/components/cv/CvViewContext';
 
@@ -73,12 +75,6 @@ export function ChatPanel() {
         </header>
 
         <div ref={scrollRef} className="flex flex-1 flex-col gap-3 overflow-y-auto px-5 py-5">
-          {!hasMessages && (
-            <p className="rounded-lg border border-[var(--color-border)] bg-[var(--color-bg)] p-3 text-xs leading-relaxed text-[var(--color-text-secondary)]">
-              {t('intro')}
-            </p>
-          )}
-
           {messages.map((m) => {
             const text = m.parts
               .filter((p) => p.type === 'text')
@@ -101,13 +97,23 @@ export function ChatPanel() {
                 )}
                 <div
                   className={cn(
-                    'max-w-[90%] whitespace-pre-wrap rounded-lg border px-3 py-2 text-xs leading-relaxed',
+                    'max-w-[90%] rounded-lg border px-3 py-2 text-xs leading-relaxed',
                     isUser
-                      ? 'border-[var(--color-accent)]/30 bg-[var(--color-accent)]/10 text-[var(--color-text-primary)]'
+                      ? 'whitespace-pre-wrap border-[var(--color-accent)]/30 bg-[var(--color-accent)]/10 text-[var(--color-text-primary)]'
                       : 'border-[var(--color-border)] bg-[var(--color-bg)] text-[var(--color-text-primary)]',
                   )}
                 >
-                  {text || (isBusy && !isUser ? '…' : '')}
+                  {isUser ? (
+                    text || ''
+                  ) : text ? (
+                    <div className="chat-md">
+                      <ReactMarkdown remarkPlugins={[remarkGfm]}>{text}</ReactMarkdown>
+                    </div>
+                  ) : isBusy ? (
+                    '…'
+                  ) : (
+                    ''
+                  )}
                 </div>
                 {isUser && (
                   <span className="inline-flex items-center gap-1 text-[10px] uppercase tracking-wider text-[var(--color-text-muted)]">

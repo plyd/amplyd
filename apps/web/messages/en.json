@@ -48,7 +48,6 @@
     "status": "Online",
     "agentLabel": "AI agent",
     "youLabel": "You",
-    "intro": "Mission, role, or a chat — leave a message and Vincent will get back to you.",
     "placeholder": "Share a role, a mission, or request a meeting.",
     "send": "Send",
     "error": "Something went wrong. Try again in a moment.",

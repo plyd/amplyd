@@ -48,7 +48,6 @@
     "status": "En ligne",
     "agentLabel": "Agent IA",
     "youLabel": "Vous",
-    "intro": "Mission, poste, ou simple échange — laissez un message et Vincent vous reviendra.",
     "placeholder": "Décrivez votre mission, votre offre, ou demandez un rendez-vous.",
     "send": "Envoyer",
     "error": "Une erreur est survenue. Réessayez dans un instant.",
