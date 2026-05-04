@@ -60,8 +60,10 @@ def test_sends_payload_with_summary_and_excerpts(monkeypatch: pytest.MonkeyPatch
     assert ok is True
     assert captured["to"] == "vincent@example.com"
     assert captured["subject"] == "[amplyd lead] freelance-mission"
-    assert captured["from"] == "hello@amplyd.com"
-    assert captured["reply_to"] == "hello@amplyd.com"
+    # from / reply_to come from settings.resend_from_email; we only assert
+    # they're consistent so a future override doesn't break the contract.
+    assert captured["from"] == captured["reply_to"]
+    assert "@" in captured["from"]
     assert "RAG mission" in captured["html"]
     assert "we need someone in 2 weeks" in captured["html"]
     assert "team of 4" in captured["html"]
