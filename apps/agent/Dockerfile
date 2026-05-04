@@ -9,8 +9,10 @@ ENV UV_LINK_MODE=copy \
 
 WORKDIR /app
 
-# Install dependencies first (better layer caching)
-COPY pyproject.toml uv.lock* ./
+# Install dependencies first (better layer caching).
+# README.md is referenced by pyproject.toml (`readme = "README.md"`) so hatchling
+# needs it present even during the deps-only sync.
+COPY pyproject.toml uv.lock* README.md ./
 RUN --mount=type=cache,target=/root/.cache/uv \
     uv sync --frozen --no-install-project --no-dev || uv sync --no-install-project --no-dev
 
