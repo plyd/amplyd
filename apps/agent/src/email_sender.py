@@ -9,7 +9,6 @@ acknowledgement to the LLM).
 from __future__ import annotations
 
 import logging
-from typing import Any
 
 import resend
 
@@ -94,10 +93,6 @@ def _escape_html(s: str) -> str:
     )
 
 
-# Exposed so tests can monkeypatch a fake module-level send.
+# Tests monkeypatch ``resend.Emails`` directly to capture the payload without
+# touching the network.
 __all__ = ["send_lead_notification"]
-
-
-def _send(payload: dict[str, Any]) -> Any:  # pragma: no cover - internal alias
-    """Indirection so tests can patch the actual Resend call easily."""
-    return resend.Emails.send(payload)
