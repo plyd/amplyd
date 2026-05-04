@@ -8,6 +8,10 @@ import { pickPresetForMessage } from '@/lib/cvViewPresets';
 
 export const runtime = 'nodejs';
 
+const AGENT_BASE_URL = process.env.AGENT_BASE_URL?.replace(/\/+$/, '') ?? '';
+const AGENT_API_TOKEN = process.env.AGENT_API_TOKEN ?? '';
+const AGENT_TIMEOUT_MS = 30_000;
+
 /**
  * Placeholder chat endpoint for M3. The real LangGraph agent backs this in
  * M5 (frontend ↔ agent SSE) — this milestone only validates the plumbing:
@@ -130,26 +134,34 @@ export async function POST(req: Request) {
     );
   }
 
-  // 4) Build placeholder reply
+  // 4) Resolve locale + last-user-text once for both proxy and fallback.
   const locale = detectLocale(req);
   const userMessage = lastUserText(parsed.data.messages) || '(message vide)';
-  const reply = placeholderReply({ locale, userName, userMessage });
 
-  // 5) Pick a CvView preset based on keywords in the user message. The real
-  //    LangGraph agent (M6) will replace this with a model-driven choice; for
-  //    now this is enough to drive the overlay end-to-end.
+  // 5) Stream as AI SDK UI message chunks.
   //
-  //    Re-validate through parseCvView so a typo in the preset table can't
-  //    leak past the schema — the same guard the client applies on receipt.
-  const preset = pickPresetForMessage(userMessage);
-  const cvView = preset ? parseCvView(preset) : null;
-
-  // 6) Stream as AI SDK UI message chunks
+  //    When AGENT_BASE_URL is set we proxy to the LangGraph agent and forward
+  //    its SSE chunks 1:1 (same shape: text-start/text-delta/text-end/data-*).
+  //    On error or timeout we fall back to the keyword-driven placeholder so
+  //    the page never sees a blank assistant message.
   const messageId = crypto.randomUUID();
   const stream = createUIMessageStream({
     execute: async ({ writer }) => {
+      if (AGENT_BASE_URL) {
+        const ok = await proxyToAgent({
+          writer,
+          messages: parsed.data.messages,
+          locale,
+        });
+        if (ok) return;
+        // fall through to placeholder
+      }
+
+      const reply = placeholderReply({ locale, userName, userMessage });
+      const preset = pickPresetForMessage(userMessage);
+      const cvView = preset ? parseCvView(preset) : null;
+
       writer.write({ type: 'text-start', id: messageId });
-      // Stream in small chunks to feel agentic.
       const tokens = reply.match(/.{1,12}/gs) ?? [reply];
       for (const t of tokens) {
         writer.write({ type: 'text-delta', id: messageId, delta: t });
@@ -157,9 +169,6 @@ export async function POST(req: Request) {
       }
       writer.write({ type: 'text-end', id: messageId });
 
-      // Emit the CvView after the text so it lands as a separate part on the
-      // assistant message; the order is irrelevant for correctness but feels
-      // natural for any human reading the SSE stream.
       if (cvView) {
         writer.write({ type: 'data-cv-view', data: cvView });
       }
@@ -168,4 +177,111 @@ export async function POST(req: Request) {
   });
 
   return createUIMessageStreamResponse({ stream });
+}
+
+// ── Agent proxy ──────────────────────────────────────────────────────────────
+
+type ChatPart = { type: string; text?: string };
+type ChatMessage = z.infer<typeof MessageSchema>;
+type StreamWriter = Parameters<
+  NonNullable<Parameters<typeof createUIMessageStream>[0]['execute']>
+>[0]['writer'];
+
+/** Collapse a UI-message into the ``{role, content}`` shape the agent expects. */
+function toAgentMessages(
+  messages: ChatMessage[],
+): { role: 'user' | 'assistant' | 'system'; content: string }[] {
+  const out: { role: 'user' | 'assistant' | 'system'; content: string }[] = [];
+  for (const m of messages) {
+    let content = '';
+    if (m.parts?.length) {
+      content = m.parts
+        .filter((p: ChatPart) => p.type === 'text' && typeof p.text === 'string')
+        .map((p: ChatPart) => p.text!)
+        .join(' ')
+        .trim();
+    }
+    if (!content && typeof m.content === 'string') content = m.content.trim();
+    if (!content) continue;
+    out.push({ role: m.role, content });
+  }
+  return out;
+}
+
+/**
+ * Forward a chat call to the agent service and re-emit each SSE chunk to the
+ * caller's UI message stream. Returns ``true`` if the proxy succeeded (status
+ * 200 and at least one chunk forwarded), ``false`` to trigger the placeholder
+ * fallback.
+ */
+async function proxyToAgent(opts: {
+  writer: StreamWriter;
+  messages: ChatMessage[];
+  locale: 'fr' | 'en';
+}): Promise<boolean> {
+  const { writer, messages, locale } = opts;
+  const ctrl = new AbortController();
+  const timer = setTimeout(() => ctrl.abort(), AGENT_TIMEOUT_MS);
+
+  try {
+    const headers: Record<string, string> = { 'Content-Type': 'application/json' };
+    if (AGENT_API_TOKEN) headers.Authorization = `Bearer ${AGENT_API_TOKEN}`;
+
+    const res = await fetch(`${AGENT_BASE_URL}/chat`, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({ messages: toAgentMessages(messages), locale }),
+      signal: ctrl.signal,
+    });
+
+    if (!res.ok || !res.body) {
+      console.warn('[proxy] agent returned status', res.status);
+      return false;
+    }
+
+    const reader = res.body.getReader();
+    const decoder = new TextDecoder();
+    let buffer = '';
+    let forwarded = 0;
+
+    while (true) {
+      const { value, done } = await reader.read();
+      if (done) break;
+      buffer += decoder.decode(value, { stream: true });
+
+      // SSE frames are separated by "\n\n".
+      let sep: number;
+      while ((sep = buffer.indexOf('\n\n')) !== -1) {
+        const frame = buffer.slice(0, sep);
+        buffer = buffer.slice(sep + 2);
+        for (const line of frame.split('\n')) {
+          if (!line.startsWith('data: ')) continue;
+          const payload = line.slice(6).trim();
+          if (!payload) continue;
+          try {
+            const obj = JSON.parse(payload) as { type?: string; data?: unknown };
+            if (!obj || typeof obj.type !== 'string') continue;
+            if (obj.type === 'done' || obj.type === 'error') continue;
+            if (obj.type === 'data-cv-view') {
+              const view = parseCvView(obj.data);
+              if (view) writer.write({ type: 'data-cv-view', data: view });
+              continue;
+            }
+            // text-start / text-delta / text-end pass through unchanged.
+            writer.write(obj as Parameters<StreamWriter['write']>[0]);
+            forwarded++;
+          } catch {
+            // ignore malformed frames
+          }
+        }
+      }
+    }
+
+    return forwarded > 0;
+  } catch (err) {
+    console.warn('[proxy] forward failed:', err);
+    return false;
+  } finally {
+    clearTimeout(timer);
+  }
 }
