@@ -12,7 +12,8 @@ import { useCvView } from '@/components/cv/CvViewContext';
  * is NOT advertised upfront — it reveals itself on the first reply, where
  * a small badge marks the bubble as coming from the AI.
  *
- * Wired to `/api/chat` (placeholder in M3, real LangGraph agent in M5).
+ * Wired to `/api/chat`, which either proxies to the LangGraph agent
+ * (when AGENT_BASE_URL is set) or falls back to the keyword placeholder.
  */
 export function ChatPanel() {
   const t = useTranslations('chat');

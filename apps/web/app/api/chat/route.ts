@@ -13,16 +13,18 @@ const AGENT_API_TOKEN = process.env.AGENT_API_TOKEN ?? '';
 const AGENT_TIMEOUT_MS = 30_000;
 
 /**
- * Placeholder chat endpoint for M3. The real LangGraph agent backs this in
- * M5 (frontend ↔ agent SSE) — this milestone only validates the plumbing:
+ * Chat endpoint. Two modes, picked at runtime:
  *
- *   1. Auth.js v5 session resolution (sign-in optional).
- *   2. Sliding-window rate limit on KV (anon: 30/5min, user: 200/1h).
- *   3. AI SDK v6 UI message stream compatible with `useChat`.
+ *  1. ``AGENT_BASE_URL`` set → proxy SSE to the LangGraph agent and forward
+ *     each chunk 1:1 (text-start / text-delta / text-end / data-cv-view).
+ *  2. ``AGENT_BASE_URL`` unset (current Vercel prod) → keyword-driven
+ *     placeholder reply + CvView preset, so the page demo stays usable
+ *     until the agent is deployed.
  *
- * The placeholder reply intentionally introduces itself as the AI agent
- * (per the brief: panel is "Contact Vincent"; the AI identity is revealed
- * on the first reply) and asks for the info needed to reach Vincent.
+ * In both modes the route still enforces:
+ *   - Auth.js v5 session resolution (sign-in optional).
+ *   - Sliding-window rate limit on KV (anon: 30/5min, user: 200/1h).
+ *   - AI SDK v6 UI message stream compatible with ``useChat``.
  */
 
 const MessageSchema = z.object({
@@ -85,7 +87,7 @@ function placeholderReply(opts: {
       `• votre nom et votre société,`,
       `• un email ou un numéro où il peut vous joindre,`,
       `• le contexte (mission, poste, ou simple échange).`,
-      `Le vrai agent arrive en M5 — pour l'instant je ne fais que confirmer la réception : « ${opts.userMessage} »`,
+      `Mode bridge actif : l'agent LangGraph est déployé hors ligne pour l'instant, je confirme juste la réception de « ${opts.userMessage} » et j'adapte le CV ci-contre quand des mots-clés colle.`,
     ].join('\n\n');
   }
   return [
@@ -94,7 +96,7 @@ function placeholderReply(opts: {
     `• your name and company,`,
     `• an email or phone where he can reach you,`,
     `• a bit of context (mission, role, or just a chat).`,
-    `The real agent ships in M5 — for now I'm only confirming receipt of: "${opts.userMessage}"`,
+    `Bridge mode: the LangGraph agent is offline for now, so I'm just acknowledging "${opts.userMessage}" and adapting the CV on the side when keywords match.`,
   ].join('\n\n');
 }
 

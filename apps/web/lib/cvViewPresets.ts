@@ -3,8 +3,10 @@
  *
  * Two consumers:
  *   1. CvDemoTrigger — visual review via ?cv=<preset>.
- *   2. /api/chat placeholder — picks a preset based on keywords in the latest
- *      user message until the LangGraph agent (M5+) takes over.
+ *   2. /api/chat fallback — picks a preset based on keywords in the latest
+ *      user message when AGENT_BASE_URL is unset (i.e. before the LangGraph
+ *      agent is deployed). Once the proxy mode is on, the agent emits its
+ *      own data-cv-view chunks and these presets are ignored.
  *
  * Indices and project keys must stay in sync with the JSON sources in
  * apps/web/content/. The Zod schema silently drops unknown keys at the
