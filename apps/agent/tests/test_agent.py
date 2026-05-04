@@ -70,14 +70,25 @@ def test_system_prompt_has_commercial_posture() -> None:
     """Smoke-test the rewrite: prompt must lead with problem-solving, not
     CV recitation, and must mention notify_vincent."""
     prompt = agent_mod._system_prompt("en")
-    # Posture markers
-    assert "Lead with the problem" in prompt
-    assert "proof point" in prompt
+    # Five-phase playbook present
+    for phase in ("HOOK", "DISCOVER", "REFRAME", "PROVE", "CONVERT"):
+        assert phase in prompt, f"missing phase {phase!r} in system prompt"
     # Tool documented
     assert "notify_vincent" in prompt
     # Hard constraints kept
     assert "NEVER ask for email or phone" in prompt
     assert "TJM" in prompt
+    # Discovery / proof separation explicitly enforced
+    assert "NEVER mix DISCOVER and PROVE" in prompt
+
+
+def test_system_prompt_engagement_rule() -> None:
+    """Every assistant turn must end with an open engagement question
+    (except the CONVERT turn). The prompt must encode that rule."""
+    prompt = agent_mod._system_prompt("en")
+    assert "open invitation question" in prompt
+    # Closed-question anti-pattern explicitly forbidden
+    assert "anything else" in prompt
 
 
 def test_system_prompt_forbids_first_person_as_vincent() -> None:
