@@ -43,6 +43,8 @@ jobs:
           echo "IMAGE=$IMAGE" >> "$GITHUB_ENV"
 
       - name: Deploy to Cloud Run
+        env:
+          RUNTIME_SA: amplyd-agent-runtime@amplyd.iam.gserviceaccount.com
         run: |
           gcloud run deploy "${SERVICE_NAME}" \
             --image="${IMAGE}" \
@@ -50,8 +52,21 @@ jobs:
             --project="${GCP_PROJECT_ID}" \
             --platform=managed \
             --allow-unauthenticated \
+            --service-account="${RUNTIME_SA}" \
             --port=8080 \
             --cpu=1 \
             --memory=512Mi \
+            --min-instances=0 \
             --max-instances=5 \
-            --set-secrets=ANTHROPIC_API_KEY=anthropic-api-key:latest,OPENAI_API_KEY=openai-api-key:latest,GEMINI_API_KEY=gemini-api-key:latest,LANGFUSE_PUBLIC_KEY=langfuse-public-key:latest,LANGFUSE_SECRET_KEY=langfuse-secret-key:latest,RESEND_API_KEY=resend-api-key:latest,OWNER_PHONE=owner-phone:latest,AGENT_API_TOKEN=agent-api-token:latest
+            --timeout=60s \
+            --set-env-vars="ENVIRONMENT=production,LOG_LEVEL=INFO,DEFAULT_LLM_MODEL=anthropic/claude-sonnet-4-5,FALLBACK_LLM_MODELS=openai/gpt-5,LANGFUSE_HOST=https://cloud.langfuse.com,RESEND_FROM_EMAIL=hello@amplyd.com,ALLOWED_ORIGINS=https://amplyd.com|https://amplyd.vercel.app|https://*.vercel.app" \
+            --set-secrets="ANTHROPIC_API_KEY=anthropic-api-key:latest,OPENAI_API_KEY=openai-api-key:latest,GEMINI_API_KEY=gemini-api-key:latest,LANGFUSE_PUBLIC_KEY=langfuse-public-key:latest,LANGFUSE_SECRET_KEY=langfuse-secret-key:latest,RESEND_API_KEY=resend-api-key:latest,OWNER_EMAIL=owner-email:latest,OWNER_PHONE=owner-phone:latest,AGENT_API_TOKEN=agent-api-token:latest"
+
+      - name: Show service URL
+        run: |
+          URL=$(gcloud run services describe "${SERVICE_NAME}" --region="${GCP_REGION}" --project="${GCP_PROJECT_ID}" --format="value(status.url)")
+          echo "Cloud Run URL: $URL"
+          echo "AGENT_URL=$URL" >> "$GITHUB_ENV"
+          echo "## Deployed" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Service: \`${SERVICE_NAME}\`" >> "$GITHUB_STEP_SUMMARY"
+          echo "- URL: $URL" >> "$GITHUB_STEP_SUMMARY"
