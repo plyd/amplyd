@@ -35,10 +35,9 @@ jobs:
           gcloud auth configure-docker ${GCP_REGION}-docker.pkg.dev --quiet
 
       - name: Build & push image
-        working-directory: apps/agent
         run: |
           IMAGE="${GCP_REGION}-docker.pkg.dev/${GCP_PROJECT_ID}/${ARTIFACT_REGISTRY_REPO}/${SERVICE_NAME}:${GITHUB_SHA::8}"
-          docker build -t "$IMAGE" .
+          docker build -f apps/agent/Dockerfile -t "$IMAGE" .
           docker push "$IMAGE"
           echo "IMAGE=$IMAGE" >> "$GITHUB_ENV"
 

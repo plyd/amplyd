@@ -1,4 +1,7 @@
 # syntax=docker/dockerfile:1.7
+#
+# Build context: monorepo root (../../ from this file). The agent ships the
+# web CV content (apps/web/content) baked in so the get_cv tool has data.
 
 # --- Builder stage: resolve & install deps with uv ---
 FROM ghcr.io/astral-sh/uv:0.6.3-python3.12-bookworm-slim AS builder
@@ -12,12 +15,12 @@ WORKDIR /app
 # Install dependencies first (better layer caching).
 # README.md is referenced by pyproject.toml (`readme = "README.md"`) so hatchling
 # needs it present even during the deps-only sync.
-COPY pyproject.toml uv.lock* README.md ./
+COPY apps/agent/pyproject.toml apps/agent/uv.lock* apps/agent/README.md ./
 RUN --mount=type=cache,target=/root/.cache/uv \
     uv sync --frozen --no-install-project --no-dev || uv sync --no-install-project --no-dev
 
 # Now copy app source and install the project
-COPY src ./src
+COPY apps/agent/src ./src
 RUN --mount=type=cache,target=/root/.cache/uv \
     uv sync --frozen --no-dev || uv sync --no-dev
 
@@ -34,9 +37,13 @@ WORKDIR /app
 
 COPY --from=builder --chown=app:app /app/.venv /app/.venv
 COPY --from=builder --chown=app:app /app/src /app/src
+# Bake the CV content (timeline/projects/education/skills/preferences JSON)
+# at /app/content; AMPLYD_AGENT_CONTENT_DIR points the loader at it.
+COPY --chown=app:app apps/web/content /app/content
 
 ENV PATH="/app/.venv/bin:$PATH" \
     PYTHONPATH="/app" \
+    CONTENT_DIR="/app/content" \
     PORT=8080
 
 EXPOSE 8080
